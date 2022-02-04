@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+h1{
+  background-color: #F5F5DC;
+  font-family: 'Courier Prime', monospace;
+	font-size: 18px;
+	color: purple;
+
+}
+
+body{
+  background-color: #F5F5DC;
+  font-family: 'Courier Prime', monospace;
+	font-size: 18px;
+	color: teal;
+
+}
+
