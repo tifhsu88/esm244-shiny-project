@@ -1,0 +1,48 @@
+---
+title: "playground"
+author: "Tiffany Hsu"
+date: "2/17/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE, warnings = FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+```{r}
+data <- read_csv(here("data/Final_Pulse_data.csv")) %>% 
+  clean_names()
+```
+
+
+# widget 1
+
+- Widget 1: Radio buttons to select the age range (18-24, 25-39, 40-54, 55-64, 65 and above)
+- Output 1: Bar graph to visualize the change in survey responses based in the US. (ie. Enough of the kinds of food wanted, Enough Food, but not always the kinds wanted, Sometimes not enough to eat, Often not enough to eat, Did not report)
+
+View for a certain age range (US) - bar graph
+18-24, 25-39, 40-54, 55-64, 65 and above
+
+```{r}
+# step 1: only filter for only age ranges
+age_range <- data %>% 
+  filter(
+    age == "18 - 24")
+
+age_range_by_week <- age_range %>% 
+  group_by(week_name) %>% 
+  summarize(sum(enough_of_the_kinds_of_food_wanted)) %>% 
+  rename(enough_of_the_kinds_of_food_wanted = 'sum(enough_of_the_kinds_of_food_wanted)')
+
+ggplot(data = age_range_by_week, aes(x = week_name, y = enough_of_the_kinds_of_food_wanted)) +
+  geom_point()
+
+   #   age == "25 - 39",
+  #   age == "40 - 54",
+  #   age == "55 - 64",
+  #   age == "65 and above"
+  # )
+```
+

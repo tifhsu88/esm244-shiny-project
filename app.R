@@ -4,7 +4,8 @@ library(bslib)
 library(here)
 
 #load data
-#covid_food <- read_csv(here("data", "Final_Pulse_Data.csv"))
+covid_food <- read_csv(here("data/Final_Pulse_data.csv")) %>%
+  clean_names()
 
 my_theme <- bs_theme(
   bg = "ivory",
@@ -139,6 +140,8 @@ ui <- fluidPage(theme = my_theme,
 
 server <- function(input, output) {
 
+#original example
+
   sw_reactive <- reactive({
     starwars %>%
       filter(species %in% input$pick_species)
@@ -148,6 +151,16 @@ server <- function(input, output) {
     ggplot(data = sw_reactive(), aes(x = mass, y = height)) +
       geom_point(aes(color = species))
   ) # end output$sw_plot
+
+  #trying to make it fit our data/ doesnt work yet
+  # food_reactive <- reactive({
+  #   covid_food %>%
+  #     filter(age %in% input$age) %>%
+  #     group_by(week_name) %>%
+  #     summarize(sum(enough_of_the_kinds_of_food_wanted)) %>%
+  #     rename(enough_of_the_kinds_of_food_wanted = 'sum(enough_of_the_kinds_of_food_wanted)')
+
+  }) # end sw_reactive
 
 }
 
