@@ -31,18 +31,62 @@ age_range <- data %>%
   filter(
     age == "18 - 24")
 
-age_range_by_week <- age_range %>% 
-  group_by(week_name) %>% 
-  summarize(sum(enough_of_the_kinds_of_food_wanted)) %>% 
-  rename(enough_of_the_kinds_of_food_wanted = 'sum(enough_of_the_kinds_of_food_wanted)')
+for (i in 1:length(age_range$week)) {
+age_range$week[[i]] <- str_replace(age_range$week[[i]], "week", "")
+}
 
-ggplot(data = age_range_by_week, aes(x = week_name, y = enough_of_the_kinds_of_food_wanted)) +
-  geom_point()
+age_range$week <- sapply(age_range$week, as.numeric) 
+
+
+age_range_by_week <- age_range %>% 
+  group_by(week) %>% 
+  summarize(sum(enough_of_the_kinds_of_food_wanted) / (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
+  rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
+
+ggplot(data = age_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
+  geom_line(color = "darkgreen") +
+  theme_minimal() +
+  labs(y = "Number of People Indicating Enough Food", #label y,
+       x = "Week Number") #+#and x axis
+  #scale_y_continuous(labels = scales::comma)
 
    #   age == "25 - 39",
   #   age == "40 - 54",
   #   age == "55 - 64",
   #   age == "65 and above"
   # )
+```
+
+```{r}
+# INCOME LEVELS
+
+#sum both of the different kinds of "enough food"?
+#and divide by total responses
+
+income_range <- data %>% 
+  filter(
+    income == "Less than $25,000")
+
+for (i in 1:length(income_range$week)) {
+income_range$week[[i]] <- str_replace(income_range$week[[i]], "week", "")
+}
+
+income_range$week <- sapply(income_range$week, as.numeric) 
+
+
+income_range_by_week <- income_range %>% 
+  group_by(week) %>% 
+  summarize(sum(enough_of_the_kinds_of_food_wanted) / (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
+  rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
+
+ggplot(data = income_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
+  geom_line(color = "darkgreen") +
+  theme_minimal() +
+  labs(y = "Number of People Indicating Enough Food", #label y,
+       x = "Week Number") 
+```
+
+```{r}
+
 ```
 

@@ -160,7 +160,7 @@ server <- function(input, output) {
   #     summarize(sum(enough_of_the_kinds_of_food_wanted)) %>%
   #     rename(enough_of_the_kinds_of_food_wanted = 'sum(enough_of_the_kinds_of_food_wanted)')
 
-  }) # end sw_reactive
+  #}) # end sw_reactive
 
 }
 
