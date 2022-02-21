@@ -2,6 +2,7 @@ library(shiny)
 library(tidyverse)
 library(bslib)
 library(here)
+library(janitor)
 
 #load data
 covid_food <- read_csv(here("data/Final_Pulse_data.csv")) %>%

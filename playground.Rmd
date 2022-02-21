@@ -14,6 +14,7 @@ library(janitor)
 ```{r}
 data <- read_csv(here("data/Final_Pulse_data.csv")) %>% 
   clean_names()
+
 ```
 
 
@@ -40,7 +41,7 @@ age_range$week <- sapply(age_range$week, as.numeric)
 
 age_range_by_week <- age_range %>% 
   group_by(week) %>% 
-  summarize(sum(enough_of_the_kinds_of_food_wanted) / (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
+  summarize((sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/ (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
   rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
 
 ggplot(data = age_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
@@ -60,9 +61,6 @@ ggplot(data = age_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_w
 ```{r}
 # INCOME LEVELS
 
-#sum both of the different kinds of "enough food"?
-#and divide by total responses
-
 income_range <- data %>% 
   filter(
     income == "Less than $25,000")
@@ -76,7 +74,7 @@ income_range$week <- sapply(income_range$week, as.numeric)
 
 income_range_by_week <- income_range %>% 
   group_by(week) %>% 
-  summarize(sum(enough_of_the_kinds_of_food_wanted) / (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
+  summarize((sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted)) / (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted) + sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) + sum(did_not_report) )) %>% 
   rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
 
 ggplot(data = income_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
