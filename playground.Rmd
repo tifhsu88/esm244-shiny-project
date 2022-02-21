@@ -13,7 +13,7 @@ library(sf)
 ```
 
 ```{r}
-covid_food <- read_csv(here("data/Final_Pulse_data.csv")) %>%
+covid_food <- read_csv(here("data/covid_food.csv")) %>%
   clean_names()
 
 ```
@@ -125,16 +125,22 @@ plot_data <- covid_food_no_us %>%
          week) %>%
   summarize(sum(totals)) %>%
   rename(responses = 'sum(totals)') %>%
-  mutate(response_ratio = responses / sum(responses)) %>%
-  filter(freq_feel_anxious == 'Not at all', week %in% c('week1', 'week2'))
+  mutate(response_pct = responses / sum(responses) * 100) %>%
+  filter(freq_feel_anxious == 'Not at all', week %in% 1:36) 
 
 us_merged <- merge(plot_data, us_states, by = 'location')
+
+us_merged_means <- us_merged %>%
+  group_by(location, freq_feel_anxious) %>%
+  mutate(mean_pct = mean(response_pct)) #%>%
+  #filter(week == 'week1')
   
   
 
-ggplot(data = us_merged, aes(geometry = geometry)) +
-  geom_sf(aes(fill = response_ratio), color = "white", size = 0.1) +
+ggplot(data = us_merged_means, aes(geometry = geometry)) +
+  geom_sf(aes(fill = mean_pct), color = "white", size = 0.1) +
   theme_void() +
   scale_fill_gradientn(colors = c("palegreen","green","darkgreen"))
+
 ```
 
