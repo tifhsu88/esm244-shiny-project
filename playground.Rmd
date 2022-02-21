@@ -9,6 +9,7 @@ output: html_document
 library(tidyverse)
 library(here)
 library(janitor)
+library(sf)
 ```
 
 ```{r}
@@ -85,6 +86,55 @@ ggplot(data = income_range_by_week, aes(x = week, y = enough_of_the_kinds_of_foo
 ```
 
 ```{r}
+#WIDGET 3
+#"Widget 3: Checkbox group allowing viewers to select level(s) of anxiety felt since last surveyed. An additional slider bar allows selection of week(s) to view. We may want to also factor food insecurity into this (ie. can also radio select which response to food insecurity the person gave relative to their anxiety level).
+#Output 3: Map including every US state; each state changes in saturation with higher number of responses for that level (or combined levels, if selecting more than one) of anxiety."
 
+us_states <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
+  clean_names() %>%
+  rename(location = stusps) %>%
+  filter(location != "VI", 
+         location != "GU", 
+         location != "MP", 
+         location != "AS", 
+         location != "PR",
+         location != "HI",
+         location != "AK") %>%
+         #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) 
+  select(location, geometry) 
+  
+covid_food_no_us <- covid_food %>%
+  filter(location != "US")
+  
+plot_data <- covid_food_no_us %>%
+  group_by(week, location, freq_feel_anxious) %>%
+  drop_na(freq_feel_anxious) %>%
+  mutate(totals = enough_of_the_kinds_of_food_wanted +
+         enough_food_but_not_always_the_kinds_wanted +
+         sometimes_not_enough_to_eat +
+         often_not_enough_to_eat +
+         did_not_report) %>%
+  select(#enough_of_the_kinds_of_food_wanted, 
+         #enough_food_but_not_always_the_kinds_wanted, 
+         #sometimes_not_enough_to_eat, 
+         #often_not_enough_to_eat, 
+         #did_not_report,
+         totals,
+         freq_feel_anxious, 
+         location, 
+         week) %>%
+  summarize(sum(totals)) %>%
+  rename(responses = 'sum(totals)') %>%
+  mutate(response_ratio = responses / sum(responses)) %>%
+  filter(freq_feel_anxious == 'Not at all', week %in% c('week1', 'week2'))
+
+us_merged <- merge(plot_data, us_states, by = 'location')
+  
+  
+
+ggplot(data = us_merged, aes(geometry = geometry)) +
+  geom_sf(aes(fill = response_ratio), color = "white", size = 0.1) +
+  theme_void() +
+  scale_fill_gradientn(colors = c("palegreen","green","darkgreen"))
 ```
 
