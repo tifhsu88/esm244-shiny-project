@@ -4,9 +4,13 @@ library(bslib)
 library(here)
 library(janitor)
 
-#load data
-covid_food <- read_csv(here("data/Final_Pulse_data.csv")) %>%
+#read in data
+covid_food <- read_csv(here("data/covid_food.csv")) %>%
   clean_names()
+
+#to avoid doubling US counts, delete the rows including US location
+us_absent <- covid_food %>%
+  filter(location != "US")
 
 my_theme <- bs_theme(
   bg = "ivory",
@@ -38,19 +42,21 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Age",
                                     sidebarLayout(
                                       sidebarPanel("WIDGET",
-                                                   radioButtons("radio", label = h3("Age range:"),
-                                                                choices = list("18-24" = 1,
-                                                                               "25-39" = 2,
-                                                                               "40-54" = 3,
-                                                                               "55-64" = 4,
-                                                                               "65 and above" = 5),
-                                                                selected = 1
+                                                   radioButtons(inputId = "radio",
+                                                                label = h3("Age range:"),
+                                                                # choices = list("18-24" = 1,
+                                                                #                "25-39" = 2,
+                                                                #                "40-54" = 3,
+                                                                #                "55-64" = 4,
+                                                                #                "65 and above" = 5),
+                                                                choices = unique(us_absent$age)
+                                                                # selected = 1
 
                                                    ) # end radioButtons
                                       ), # end sidebarPanel
 
                                       mainPanel("OUTPUT!",
-                                                plotOutput("sw_plot")
+                                                plotOutput("food_plot")
                                       )
 
                                     ) # end sidebarLayout
@@ -88,7 +94,7 @@ ui <- fluidPage(theme = my_theme,
                                     sidebarLayout(
                                       sidebarPanel("WIDGETS",
 
-                                                   checkboxGroupInput(inputId = "pick_species",
+                                                   checkboxGroupInput(inputId = "pick_age",
                                                                       label = h3("Anxiety frequency:"),
                                                                       choices = list("Not at all" = 1,
                                                                                      "Several days" = 2,
@@ -140,29 +146,46 @@ ui <- fluidPage(theme = my_theme,
 ) # end ui
 
 server <- function(input, output) {
+  food_reactive <- reactive({
+    us_absent %>%
+      filter(age %in% input$radio) %>%
+      group_by(week) %>%
+      summarize(
+        (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/
+          (sum(enough_of_the_kinds_of_food_wanted) +
+             sum(enough_food_but_not_always_the_kinds_wanted) +
+             sum(sometimes_not_enough_to_eat) +
+             sum(often_not_enough_to_eat) +
+             sum(did_not_report)
+           )
+        ) %>%
+      rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
+    }) # end food_reactive
 
-#original example
-
-  sw_reactive <- reactive({
-    starwars %>%
-      filter(species %in% input$pick_species)
-  }) # end sw_reactive
-
-  output$sw_plot <- renderPlot(
-    ggplot(data = sw_reactive(), aes(x = mass, y = height)) +
-      geom_point(aes(color = species))
-  ) # end output$sw_plot
-
-  #trying to make it fit our data/ doesnt work yet
-  # food_reactive <- reactive({
-  #   covid_food %>%
-  #     filter(age %in% input$age) %>%
-  #     group_by(week_name) %>%
-  #     summarize(sum(enough_of_the_kinds_of_food_wanted)) %>%
-  #     rename(enough_of_the_kinds_of_food_wanted = 'sum(enough_of_the_kinds_of_food_wanted)')
-
-  #}) # end sw_reactive
+    output$food_plot <- renderPlot(
+      ggplot(data = food_reactive(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
+        geom_line(color = "darkgreen") +
+        theme_minimal() +
+        labs(y = "Number of People Indicating Enough Food", #label y,
+             x = "Week Number")
+    ) # end output$food_plot
 
 }
+
+# #original example
+#
+#   sw_reactive <- reactive({
+#     starwars %>%
+#       filter(species %in% input$pick_species)
+#   }) # end sw_reactive
+#
+#   output$sw_plot <- renderPlot(
+#     ggplot(data = sw_reactive(), aes(x = mass, y = height)) +
+#       geom_point(aes(color = species))
+#   ) # end output$sw_plot
+#
+#   #}) # end sw_reactive
+#
+# }
 
 shinyApp(ui = ui, server = server)
