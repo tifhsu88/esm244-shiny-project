@@ -144,3 +144,53 @@ ggplot(data = us_merged_means, aes(geometry = geometry)) +
 
 ```
 
+```{r}
+#WIDGET 4
+#"Widget 4: Select box dropdown allowing viewers to choose a reason for not working since last surveyed. We may want to also factor food insecurity into this (ie. can also radio select which response to food insecurity the person gave relative to their reason for not working).
+#Output 4: Line graph of people who selected that reason in the survey for the entire US over the time period of the dataset (Week 1 to Week 36)."
+
+no_work_reason <- covid_food %>% 
+  filter(
+    reason_not_working == "Did not want to be employed")
+
+us_states <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
+  clean_names() %>%
+  rename(location = stusps) %>%
+  filter(location != "VI", 
+         location != "GU", 
+         location != "MP", 
+         location != "AS", 
+         location != "PR",
+         location != "HI",
+         location != "AK") %>%
+         #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) 
+  select(location) 
+
+us_merged <- merge(no_work_reason, us_states, by = 'location')
+
+work_reason_survey <- no_work_reason %>% 
+  mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted), 
+         sum_2 = sum(enough_food_but_not_always_the_kinds_wanted), 
+         sum_3 = sum(sometimes_not_enough_to_eat), 
+         sum_4 = sum(often_not_enough_to_eat), 
+         sum_5 = sum(did_not_report)) %>%
+  select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
+  head(1) %>%
+  t() %>%
+  as.data.frame() %>%
+  rename(values = "V1")
+
+work_reason_survey$names <- c("Enough - Wanted", "Enough - Not Always Wanted", "Sometimes Not Enough", "Often Not Enough", "Did not report")
+
+
+
+ggplot(data=work_reason_survey, aes(x=reorder(names, values), y=values)) +
+  geom_bar(fill = "darkgreen", stat = "identity") +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma) +
+  labs(y = "Survey Response", #label y,
+       x = "Number of People Selected")
+  
+```
+
