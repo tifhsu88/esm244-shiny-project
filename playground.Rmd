@@ -10,11 +10,14 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(sf)
+library(readr)
 ```
 
 ```{r}
 covid_food <- read_csv(here("data/covid_food.csv")) %>%
   clean_names()
+
+us_states <- read_csv(here("data/us_states.csv"))
 
 ```
 
@@ -90,18 +93,20 @@ ggplot(data = income_range_by_week, aes(x = week, y = enough_of_the_kinds_of_foo
 #"Widget 3: Checkbox group allowing viewers to select level(s) of anxiety felt since last surveyed. An additional slider bar allows selection of week(s) to view. We may want to also factor food insecurity into this (ie. can also radio select which response to food insecurity the person gave relative to their anxiety level).
 #Output 3: Map including every US state; each state changes in saturation with higher number of responses for that level (or combined levels, if selecting more than one) of anxiety."
 
-us_states <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
-  clean_names() %>%
-  rename(location = stusps) %>%
-  filter(location != "VI", 
-         location != "GU", 
-         location != "MP", 
-         location != "AS", 
-         location != "PR",
-         location != "HI",
-         location != "AK") %>%
+#us_states <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
+  #clean_names() %>%
+  #rename(location = stusps) %>%
+  #filter(location != "VI", 
+         #location != "GU", 
+         #location != "MP", 
+         #location != "AS", 
+         #location != "PR",
+         #location != "HI",
+         #location != "AK") %>%
          #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) 
-  select(location, geometry) 
+  #select(location, geometry) 
+
+
   
 covid_food_no_us <- covid_food %>%
   filter(location != "US")
@@ -153,20 +158,10 @@ no_work_reason <- covid_food %>%
   filter(
     reason_not_working == "Did not want to be employed")
 
-us_states <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
-  clean_names() %>%
-  rename(location = stusps) %>%
-  filter(location != "VI", 
-         location != "GU", 
-         location != "MP", 
-         location != "AS", 
-         location != "PR",
-         location != "HI",
-         location != "AK") %>%
-         #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) 
+us_states_loc <- us_states %>%
   select(location) 
 
-us_merged <- merge(no_work_reason, us_states, by = 'location')
+us_merged <- merge(no_work_reason, us_states_loc, by = 'location')
 
 work_reason_survey <- no_work_reason %>% 
   mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted), 
