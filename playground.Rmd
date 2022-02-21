@@ -189,8 +189,8 @@ ggplot(data=work_reason_survey, aes(x=reorder(names, values), y=values)) +
   coord_flip() +
   theme_minimal() +
   scale_y_continuous(labels = scales::comma) +
-  labs(y = "Survey Response", #label y,
-       x = "Number of People Selected")
+  labs(x = "Survey Response", #label y,
+       y = "Number of People Selected")
   
 ```
 
