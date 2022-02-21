@@ -12,7 +12,7 @@ library(janitor)
 ```
 
 ```{r}
-data <- read_csv(here("data/Final_Pulse_data.csv")) %>% 
+covid_food <- read_csv(here("data/Final_Pulse_data.csv")) %>%
   clean_names()
 
 ```
@@ -28,7 +28,7 @@ View for a certain age range (US) - bar graph
 
 ```{r}
 # step 1: only filter for only age ranges
-age_range <- data %>% 
+age_range <- covid_food %>% 
   filter(
     age == "18 - 24")
 
@@ -61,7 +61,7 @@ ggplot(data = age_range_by_week, aes(x = week, y = enough_of_the_kinds_of_food_w
 ```{r}
 # INCOME LEVELS
 
-income_range <- data %>% 
+income_range <- covid_food %>% 
   filter(
     income == "Less than $25,000")
 
