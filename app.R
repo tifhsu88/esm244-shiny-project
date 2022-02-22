@@ -5,12 +5,12 @@ library(here)
 library(sf)
 library(janitor)
 
-#read in data
+# read in data
 covid_food <- read_csv(here("data/covid_food.csv")) %>%
   clean_names()
 
-us_states <- read_csv(here("data/us_states.csv"))
-
+# contains geometry of us states
+#us_states <- read_csv(here("data/us_states.csv")) # erika created this but it loses sf features
 
 us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
   clean_names() %>%
@@ -25,11 +25,10 @@ us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %
   #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) %>%
   select(location, geometry)
 
-us_states_no_geom <- us_states %>%
-  select(-geometry)
+us_states_no_geom <- us_states_map %>%
+   select(-geometry)
 
-
-
+covid_food_merged_no_geom <- merge(covid_food, us_states_no_geom, by = "location")
 
 #to avoid doubling US counts, delete the rows including US location
 us_absent_no_geom <- covid_food_merged_no_geom %>%
@@ -102,12 +101,12 @@ ui <- fluidPage(theme = my_theme,
                                                                 label = h3("Age range:"),
 
                                                                 #when using manual choices, plot will not show up
-                                                                # choices = list("18 - 24" = 1,
-                                                                #                "25 - 39" = 2,
-                                                                #                "40 - 54" = 3,
-                                                                #                "55 - 64" = 4,
-                                                                #                "65 and above" = 5),
-                                                                choices = unique(us_absent$age) #idk how to remove NA
+                                                                choices = list("18 - 24",
+                                                                               "25 - 39",
+                                                                               "40 - 54",
+                                                                               "55 - 64",
+                                                                               "65 and above"),
+                                                                # choices = unique(us_absent$age) #idk how to remove NA
                                                                 #choices = unique(starwars$species)
                                                                 # selected = 1
 
@@ -126,17 +125,16 @@ ui <- fluidPage(theme = my_theme,
                                     sidebarLayout(
                                       sidebarPanel("WIDGET",
                                                    radioButtons(inputId = "pick_income", label = h3("Income level:"),
-                                                                # choices = list("Less than $25,000" = 1,
-                                                                #                "$25,000 - $34,999" = 2,
-                                                                #                "$35,000 - $49,999" = 3,
-                                                                #                "$50,000 - $74,999" = 4,
-                                                                #                "$75,000 - $99,999" = 5,
-                                                                #                "$100,000 - $149,999" = 6,
-                                                                #                "$150,000 - $199,999" = 7,
-                                                                #                "$150,000 - $199,999" = 8,
-                                                                #                "Did not report" = 9
-                                                                # ),
-                                                                choices = unique(us_absent$income) #idk how to remove NA
+                                                                choices = list("Less than $25,000",
+                                                                               "$25,000 - $34,999",
+                                                                               "$35,000 - $49,999",
+                                                                               "$50,000 - $74,999",
+                                                                               "$75,000 - $99,999",
+                                                                               "$100,000 - $149,999",
+                                                                               "$150,000 - $199,999",
+                                                                               "$200,000 and above",
+                                                                               "Did not report"),
+                                                                # choices = unique(us_absent$income) #idk how to remove NA
                                                                 # selected = 1
 
                                                    ) # end radioButtons
@@ -156,12 +154,12 @@ ui <- fluidPage(theme = my_theme,
 
                                                    checkboxGroupInput(inputId = "pick_anxiety",
                                                                       label = h3("Anxiety frequency:"),
-                                                                      # choices = list("Not at all" = 1,
-                                                                      #                "Several days" = 2,
-                                                                      #                "More than half the days" = 3,
-                                                                      #                "Nearly every day" = 4,
-                                                                      #                "Did not report" = 5)
-                                                                      choices = unique(us_absent$freq_feel_anxious) #idk how to remove NA
+                                                                      choices = list("Not at all",
+                                                                                     "Several days",
+                                                                                     "More than half the days",
+                                                                                     "Nearly every day",
+                                                                                     "Did not report")
+                                                                      # choices = unique(us_absent$freq_feel_anxious) #idk how to remove NA
                                                    ), # end checkboxGroupInput
                                                    sliderInput(inputId = "pick_week",
                                                                label = h3("Weeks"),
@@ -177,35 +175,36 @@ ui <- fluidPage(theme = my_theme,
 
                                     ) # end sidebarLayout
 
-                           ) # end tabPanel thing 4
-                           # tabPanel("Work",
-                           #          sidebarLayout(
-                           #            sidebarPanel("WIDGET",
-                           #                         selectInput("select", label = h3("Reason for not working:"),
-                           #                                     choices = list("Did not want to be employed" = 1,
-                           #                                                    "Sick with coronavirus symptoms" = 2,
-                           #                                                    "Caring for someone with coronavirus symptoms" = 3,
-                           #                                                    "Caring for children not in school or daycare" = 4,
-                           #                                                    "Caring for an elderly person" = 5,
-                           #                                                    "Sick (not coronavirus related) or disabled" = 6,
-                           #                                                    "Retired" = 7,
-                           #                                                    "Coronavirus pandemic related reduction in business (including furlough)" = 8,
-                           #                                                    "Laid off due to coronavirus pandemic" = 9,
-                           #                                                    "Employment closed temporarily due to the coronavirus pandemic" = 10,
-                           #                                                    "Employment went out of business due to the coronavirus pandemic" = 11,
-                           #                                                    "Other reason" = 12,
-                           #                                                    "Did not report" = 13),
-                           #                                     selected = 1
-                           #                                     ) # end checkboxGroupInput
-                           #            ), # end sidebarPanel
-                           #
-                           #            mainPanel("OUTPUT!",
-                           #                      plotOutput("sw_plot")
-                           #            )
-                           #
-                           #          ) # end sidebarLayout
-                           #
-                           # ), # end tabPanel thing 5
+                           ), # end tabPanel thing 4
+                           tabPanel("Work",
+                                    sidebarLayout(
+                                      sidebarPanel("WIDGET",
+                                                   selectInput(inputId = "pick_reason", label = h3("Reason for not working:"),
+                                                               choices = list("Did not want to be employed",
+                                                                              "Sick with coronavirus symptoms",
+                                                                              "Caring for someone with coronavirus symptoms",
+                                                                              "Caring for children not in school or daycare",
+                                                                              "Caring for an elderly person",
+                                                                              "Sick (not coronavirus related) or disabled",
+                                                                              "Retired" ,
+                                                                              "Coronavirus pandemic related reduction in business (including furlough)",
+                                                                              "Laid off due to coronavirus pandemic",
+                                                                              "Employment closed temporarily due to the coronavirus pandemic",
+                                                                              "Employment went out of business due to the coronavirus pandemic",
+                                                                              "Other reason",
+                                                                              "Did not report")
+                                                               # choices = unique(us_absent_no_geom$reason_not_working) #idk how to remove NA
+                                                               # selected = 1
+                                                               ) # end checkboxGroupInput
+                                      ), # end sidebarPanel
+
+                                      mainPanel("OUTPUT!",
+                                                plotOutput("work_plot")
+                                      )
+
+                                    ) # end sidebarLayout
+
+                           ), # end tabPanel thing 5
                 ) # end navbarPage
 ) # end ui
 
@@ -272,25 +271,59 @@ server <- function(input, output) {
 
     #WIDGET 3 START
     widget3 <- reactive({
-      plot_data %>%
+      covid_food_merged %>%
         filter(freq_feel_anxious %in% input$pick_anxiety,
                week %in% input$pick_week) %>%
         group_by(location, freq_feel_anxious) %>%
-        mutate(mean_pct = mean(response_pct))
+        mutate(mean_pct = mean(response_pct)) %>%
+        select(location, mean_pct, freq_feel_anxious, geometry) %>%
+        distinct() %>%
+        group_by(location) %>%
+        mutate(sum_anx = sum(mean_pct))
     }) # end food_reactive
 
     output$map_plot <- renderPlot(
-      ggplot(data = widget3(), aes(geometry = widget3(geometry))) +
-        geom_sf(aes(fill = mean_pct), color = "white", size = 0.1) +
+      ggplot(data = widget3(), aes(geometry = geometry)) +
+        geom_sf(aes(fill = sum_anx), color = "white", size = 0.1) +
         theme_void() +
-        scale_fill_gradientn(colors = c("palegreen","green","darkgreen"))
+        scale_fill_gradientn(colors = c("palegreen","green","darkgreen")) +
+        theme(legend.title = element_blank()) +
+        labs(title = "Cumulative sum of the mean percentage of survey responses over the course of the selected week(s) that were of the selected anxiety frequency (or frequencies)")
     ) # end output$map_plot
     #WIDGET 3 END
 
 
 
     #WIDGET 4 START
+    widget4 <- reactive({
+      us_absent_no_geom %>%
+        filter(reason_not_working %in% input$pick_reason) %>%
+        mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted),
+               sum_2 = sum(enough_food_but_not_always_the_kinds_wanted),
+               sum_3 = sum(sometimes_not_enough_to_eat),
+               sum_4 = sum(often_not_enough_to_eat),
+               sum_5 = sum(did_not_report)) %>%
+        select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
+        head(1) %>%
+        t() %>%
+        as.data.frame() %>%
+        rename(values = "1")%>%
+        add_column(name = c("Enough - Wanted",
+                            "Enough - Not Always Wanted",
+                            "Sometimes Not Enough",
+                            "Often Not Enough",
+                            "Did not report"))
+    }) # end food_reactive
 
+    output$work_plot <- renderPlot(
+      ggplot(data=widget4(), aes(x=reorder(name, values), y=values)) +
+        geom_bar(fill = "darkgreen", stat = "identity") +
+        coord_flip() +
+        theme_minimal() +
+        scale_y_continuous(labels = scales::comma) +
+        labs(x = "Survey Response",
+             y = "Number of People Selected")
+    ) # end output$work_plot
     #WIDGET 4 END
 }
 
