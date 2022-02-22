@@ -2,15 +2,71 @@ library(shiny)
 library(tidyverse)
 library(bslib)
 library(here)
+library(sf)
 library(janitor)
 
 #read in data
 covid_food <- read_csv(here("data/covid_food.csv")) %>%
   clean_names()
 
+us_states <- read_csv(here("data/us_states.csv"))
+
+
+us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
+  clean_names() %>%
+  rename(location = stusps) %>%
+  filter(location != "VI",
+         location != "GU",
+         location != "MP",
+         location != "AS",
+         location != "PR",
+         location != "HI",
+         location != "AK") %>%
+  #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) %>%
+  select(location, geometry)
+
+us_states_no_geom <- us_states %>%
+  select(-geometry)
+
+
+
+
 #to avoid doubling US counts, delete the rows including US location
+us_absent_no_geom <- covid_food_merged_no_geom %>%
+  filter(location != "US")
+
+
 us_absent <- covid_food %>%
   filter(location != "US")
+
+# # for widget 3
+plot_data <- us_absent %>%
+  group_by(week, location, freq_feel_anxious) %>%
+  drop_na(freq_feel_anxious) %>%
+  mutate(totals = enough_of_the_kinds_of_food_wanted +
+           enough_food_but_not_always_the_kinds_wanted +
+           sometimes_not_enough_to_eat +
+           often_not_enough_to_eat +
+           did_not_report) %>%
+  select(#enough_of_the_kinds_of_food_wanted,
+    #enough_food_but_not_always_the_kinds_wanted,
+    #sometimes_not_enough_to_eat,
+    #often_not_enough_to_eat,
+    #did_not_report,
+    totals,
+    freq_feel_anxious,
+    location,
+    week) %>%
+  summarize(sum(totals)) %>%
+  rename(responses = 'sum(totals)') %>%
+  mutate(response_pct = responses / sum(responses) * 100)
+  # filter(freq_feel_anxious == 'Not at all', week %in% 1:36)
+
+covid_food_merged <- merge(plot_data, us_states_map, by = 'location')
+
+
+
+
 
 my_theme <- bs_theme(
   bg = "ivory",
@@ -46,10 +102,10 @@ ui <- fluidPage(theme = my_theme,
                                                                 label = h3("Age range:"),
 
                                                                 #when using manual choices, plot will not show up
-                                                                # choices = list("18-24" = 1,
-                                                                #                "25-39" = 2,
-                                                                #                "40-54" = 3,
-                                                                #                "55-64" = 4,
+                                                                # choices = list("18 - 24" = 1,
+                                                                #                "25 - 39" = 2,
+                                                                #                "40 - 54" = 3,
+                                                                #                "55 - 64" = 4,
                                                                 #                "65 and above" = 5),
                                                                 choices = unique(us_absent$age) #idk how to remove NA
                                                                 #choices = unique(starwars$species)
@@ -69,7 +125,7 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Income",
                                     sidebarLayout(
                                       sidebarPanel("WIDGET",
-                                                   radioButtons(inputId = "pick_a", label = h3("Income level:"),
+                                                   radioButtons(inputId = "pick_income", label = h3("Income level:"),
                                                                 # choices = list("Less than $25,000" = 1,
                                                                 #                "$25,000 - $34,999" = 2,
                                                                 #                "$35,000 - $49,999" = 3,
@@ -86,38 +142,42 @@ ui <- fluidPage(theme = my_theme,
                                                    ) # end radioButtons
                                       ), # end sidebarPanel
 
-                                      mainPanel("OUTPUT!",
+                                      mainPanel("OUTPUT only in CA!",
                                                 plotOutput("income_plot")
                                       )
 
                                     ) # end sidebarLayout
 
-                           ) # end tabPanel thing 3
-                           #
-                           # tabPanel("Anxiety",
-                           #          sidebarLayout(
-                           #            sidebarPanel("WIDGETS",
-                           #
-                           #                         checkboxGroupInput(inputId = "pick_age",
-                           #                                            label = h3("Anxiety frequency:"),
-                           #                                            choices = list("Not at all" = 1,
-                           #                                                           "Several days" = 2,
-                           #                                                           "More than half the days" = 3,
-                           #                                                           "Nearly every day" = 4,
-                           #                                                           "Did not report" = 5)
-                           #                         ), # end checkboxGroupInput
-                           #                         sliderInput("slider2", label = h3("Weeks"), min = 1,
-                           #                                      max = 36, value = c(1, 10)
-                           #                                      ) #end sliderInput
-                           #            ), # end sidebarPanel
-                           #
-                           #            mainPanel("OUTPUT!",
-                           #                      plotOutput("sw_plot")
-                           #            )
-                           #
-                           #          ) # end sidebarLayout
-                           #
-                           # ), # end tabPanel thing 4
+                           ), # end tabPanel thing 3
+
+                           tabPanel("Anxiety",
+                                    sidebarLayout(
+                                      sidebarPanel("WIDGETS",
+
+                                                   checkboxGroupInput(inputId = "pick_anxiety",
+                                                                      label = h3("Anxiety frequency:"),
+                                                                      # choices = list("Not at all" = 1,
+                                                                      #                "Several days" = 2,
+                                                                      #                "More than half the days" = 3,
+                                                                      #                "Nearly every day" = 4,
+                                                                      #                "Did not report" = 5)
+                                                                      choices = unique(us_absent$freq_feel_anxious) #idk how to remove NA
+                                                   ), # end checkboxGroupInput
+                                                   sliderInput(inputId = "pick_week",
+                                                               label = h3("Weeks"),
+                                                               min = 1,
+                                                               max = 36,
+                                                               value = c(1, 10)
+                                                                ) #end sliderInput
+                                      ), # end sidebarPanel
+
+                                      mainPanel("OUTPUT!",
+                                                plotOutput("map_plot")
+                                      )
+
+                                    ) # end sidebarLayout
+
+                           ) # end tabPanel thing 4
                            # tabPanel("Work",
                            #          sidebarLayout(
                            #            sidebarPanel("WIDGET",
@@ -153,7 +213,7 @@ server <- function(input, output) {
 
   #WIDGET 1 START
   widget1 <- reactive({
-    us_absent %>%
+    us_absent_no_geom %>%
       filter(age %in% input$pick_age) %>%
       group_by(week) %>%
       summarize(
@@ -173,40 +233,58 @@ server <- function(input, output) {
         geom_line(color = "darkgreen") +
         theme_minimal() +
         labs(y = "Number of People Indicating Enough Food", #label y
-             x = "Week Number")
+             x = "Week Number") +
+        ylim(0.5, 1)
     ) # end output$age_plot
     #WIDGET 1 END
 
 
-    # #WIDGET 2 START
-    # widget1 <- reactive({
-    #   us_absent %>%
-    #     filter(age %in% input$pick_age) %>%
-    #     group_by(week) %>%
-    #     summarize(
-    #       (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/
-    #         (sum(enough_of_the_kinds_of_food_wanted) +
-    #            sum(enough_food_but_not_always_the_kinds_wanted) +
-    #            sum(sometimes_not_enough_to_eat) +
-    #            sum(often_not_enough_to_eat) +
-    #            sum(did_not_report)
-    #         )
-    #     ) %>%
-    #     rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
-    # }) # end food_reactive
-    #
-    # output$age_plot <- renderPlot(
-    #   ggplot(data = widget1(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
-    #     geom_line(color = "darkgreen") +
-    #     theme_minimal() +
-    #     labs(y = "Number of People Indicating Enough Food", #label y
-    #          x = "Week Number")
-    # ) # end output$income_plot
-    # #WIDGET 2 END
+    #WIDGET 2 START
+    widget2 <- reactive({
+      us_absent_no_geom %>%
+        filter(location == "CA") %>%
+        filter(income %in% input$pick_income) %>%
+        group_by(week) %>%
+        summarize(
+          (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/
+            (sum(enough_of_the_kinds_of_food_wanted) +
+               sum(enough_food_but_not_always_the_kinds_wanted) +
+               sum(sometimes_not_enough_to_eat) +
+               sum(often_not_enough_to_eat) +
+               sum(did_not_report)
+            )
+        ) %>%
+        rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
+    }) # end food_reactive
+
+    output$income_plot <- renderPlot(
+      ggplot(data = widget2(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
+        geom_line(color = "darkgreen") +
+        theme_minimal() +
+        labs(y = "Number of People Indicating Enough Food", #label y
+             x = "Week Number") +
+      ylim(0.5, 1)
+
+    ) # end output$income_plot
+    #WIDGET 2 END
+
 
 
     #WIDGET 3 START
+    widget3 <- reactive({
+      plot_data %>%
+        filter(freq_feel_anxious %in% input$pick_anxiety,
+               week %in% input$pick_week) %>%
+        group_by(location, freq_feel_anxious) %>%
+        mutate(mean_pct = mean(response_pct))
+    }) # end food_reactive
 
+    output$map_plot <- renderPlot(
+      ggplot(data = widget3(), aes(geometry = widget3(geometry))) +
+        geom_sf(aes(fill = mean_pct), color = "white", size = 0.1) +
+        theme_void() +
+        scale_fill_gradientn(colors = c("palegreen","green","darkgreen"))
+    ) # end output$map_plot
     #WIDGET 3 END
 
 
