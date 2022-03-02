@@ -231,9 +231,10 @@ server <- function(input, output) {
       ggplot(data = widget1(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
         geom_line(color = "darkgreen") +
         theme_minimal() +
-        labs(y = "Number of People Indicating Enough Food", #label y
+        labs(y = "Percentage of People Indicating Enough Food", #label y
              x = "Week Number") +
-        ylim(0.5, 1)
+        #ylim(.5, 1) +
+        scale_y_continuous(labels = scales::percent, limits = c(.5, 1))
     ) # end output$age_plot
     #WIDGET 1 END
 
@@ -260,9 +261,10 @@ server <- function(input, output) {
       ggplot(data = widget2(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
         geom_line(color = "darkgreen") +
         theme_minimal() +
-        labs(y = "Number of People Indicating Enough Food", #label y
+        labs(y = "Percentage of People Indicating Enough Food", #label y
              x = "Week Number") +
-      ylim(0.5, 1)
+      #ylim(0.5, 1)
+        scale_y_continuous(labels = scales::percent, limits = c(.5, 1))
 
     ) # end output$income_plot
     #WIDGET 2 END
@@ -298,11 +300,36 @@ server <- function(input, output) {
     widget4 <- reactive({
       us_absent_no_geom %>%
         filter(reason_not_working %in% input$pick_reason) %>%
-        mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted),
-               sum_2 = sum(enough_food_but_not_always_the_kinds_wanted),
-               sum_3 = sum(sometimes_not_enough_to_eat),
-               sum_4 = sum(often_not_enough_to_eat),
-               sum_5 = sum(did_not_report)) %>%
+        mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_2 = sum(enough_food_but_not_always_the_kinds_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_3 = sum(sometimes_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_4 = sum(often_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_5 = sum(did_not_report)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report))) %>%
         select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
         head(1) %>%
         t() %>%
@@ -320,9 +347,9 @@ server <- function(input, output) {
         geom_bar(fill = "darkgreen", stat = "identity") +
         coord_flip() +
         theme_minimal() +
-        scale_y_continuous(labels = scales::comma) +
+        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
         labs(x = "Survey Response",
-             y = "Number of People Selected")
+             y = "Percentage of People Selected")
     ) # end output$work_plot
     #WIDGET 4 END
 }
