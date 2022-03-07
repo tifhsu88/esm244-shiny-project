@@ -1,0 +1,676 @@
+response,reason,week,values
+Enough - Wanted,not_want_employ,1,0.6177812697608354
+Enough - Wanted,not_want_employ,2,0.5695101044798335
+Enough - Wanted,not_want_employ,3,0.5812276638875198
+Enough - Wanted,not_want_employ,4,0.6258287796138222
+Enough - Wanted,not_want_employ,5,0.7142920105539783
+Enough - Wanted,not_want_employ,6,0.6802037147193603
+Enough - Wanted,not_want_employ,7,0.6507842310642314
+Enough - Wanted,not_want_employ,8,0.7481637721218131
+Enough - Wanted,not_want_employ,9,0.7075234883904407
+Enough - Wanted,not_want_employ,10,0.7129973413778824
+Enough - Wanted,not_want_employ,11,0.6808370665552107
+Enough - Wanted,not_want_employ,12,0.6228859870237351
+Enough - Wanted,not_want_employ,13,0.5255605891048818
+Enough - Wanted,not_want_employ,14,0.5941326396572185
+Enough - Wanted,not_want_employ,15,0.5808660719091375
+Enough - Wanted,not_want_employ,16,0.6041022728841672
+Enough - Wanted,not_want_employ,17,0.5576470453746705
+Enough - Wanted,not_want_employ,18,0.6000653942479374
+Enough - Wanted,not_want_employ,19,0.5607143072953065
+Enough - Wanted,not_want_employ,20,0.5295842196867143
+Enough - Wanted,not_want_employ,21,0.5518069654754586
+Enough - Wanted,not_want_employ,22,0.5346751057475781
+Enough - Wanted,not_want_employ,23,0.606573252225105
+Enough - Wanted,not_want_employ,24,0.5376446666527539
+Enough - Wanted,not_want_employ,25,0.6063644610105815
+Enough - Wanted,not_want_employ,26,0.5472436273545349
+Enough - Wanted,not_want_employ,27,0.6392039199179639
+Enough - Not Always Wanted,not_want_employ,1,0.3135117279123552
+Enough - Not Always Wanted,not_want_employ,2,0.2635869179200548
+Enough - Not Always Wanted,not_want_employ,3,0.310602397091485
+Enough - Not Always Wanted,not_want_employ,4,0.2788868114616997
+Enough - Not Always Wanted,not_want_employ,5,0.21162441930356676
+Enough - Not Always Wanted,not_want_employ,6,0.1766719587692384
+Enough - Not Always Wanted,not_want_employ,7,0.2771635216441223
+Enough - Not Always Wanted,not_want_employ,8,0.20324232686926633
+Enough - Not Always Wanted,not_want_employ,9,0.17387909181653843
+Enough - Not Always Wanted,not_want_employ,10,0.2227624597489146
+Enough - Not Always Wanted,not_want_employ,11,0.212696491869565
+Enough - Not Always Wanted,not_want_employ,12,0.20820029054118533
+Enough - Not Always Wanted,not_want_employ,13,0.18372262070535897
+Enough - Not Always Wanted,not_want_employ,14,0.16046832068687272
+Enough - Not Always Wanted,not_want_employ,15,0.17959458717713284
+Enough - Not Always Wanted,not_want_employ,16,0.15166067675676845
+Enough - Not Always Wanted,not_want_employ,17,0.1750506019467338
+Enough - Not Always Wanted,not_want_employ,18,0.1349032781527485
+Enough - Not Always Wanted,not_want_employ,19,0.15128116884093276
+Enough - Not Always Wanted,not_want_employ,20,0.18697613322484247
+Enough - Not Always Wanted,not_want_employ,21,0.2156785530650364
+Enough - Not Always Wanted,not_want_employ,22,0.21922506365976685
+Enough - Not Always Wanted,not_want_employ,23,0.13131819446385307
+Enough - Not Always Wanted,not_want_employ,24,0.14898756106382618
+Enough - Not Always Wanted,not_want_employ,25,0.17292682911160234
+Enough - Not Always Wanted,not_want_employ,26,0.15589497406670197
+Enough - Not Always Wanted,not_want_employ,27,0.10296222070942954
+Sometimes Not Enough,not_want_employ,1,0.04572802604870027
+Sometimes Not Enough,not_want_employ,2,0.08048605593929634
+Sometimes Not Enough,not_want_employ,3,0.07338437601176274
+Sometimes Not Enough,not_want_employ,4,0.02406424908462948
+Sometimes Not Enough,not_want_employ,5,0.02500202884991591
+Sometimes Not Enough,not_want_employ,6,0.05253076094167878
+Sometimes Not Enough,not_want_employ,7,0.03343844223841617
+Sometimes Not Enough,not_want_employ,8,0.01822749983152631
+Sometimes Not Enough,not_want_employ,9,0.04602163778998171
+Sometimes Not Enough,not_want_employ,10,0.01583587226077568
+Sometimes Not Enough,not_want_employ,11,0.03599283583530871
+Sometimes Not Enough,not_want_employ,12,0.09691716450689296
+Sometimes Not Enough,not_want_employ,13,0.03123294348931695
+Sometimes Not Enough,not_want_employ,14,0.02968823424429428
+Sometimes Not Enough,not_want_employ,15,0.02575623219098037
+Sometimes Not Enough,not_want_employ,16,0.01798188560002449
+Sometimes Not Enough,not_want_employ,17,0.02718585144615129
+Sometimes Not Enough,not_want_employ,18,0.04404976644172366
+Sometimes Not Enough,not_want_employ,19,0.05991800777988772
+Sometimes Not Enough,not_want_employ,20,0.02707494262268164
+Sometimes Not Enough,not_want_employ,21,0.01739326773315555
+Sometimes Not Enough,not_want_employ,22,0.02669552744677145
+Sometimes Not Enough,not_want_employ,23,0.02595705922918372
+Sometimes Not Enough,not_want_employ,24,0.02542658443606341
+Sometimes Not Enough,not_want_employ,25,0.03908224971395789
+Sometimes Not Enough,not_want_employ,26,0.04230915022479208
+Sometimes Not Enough,not_want_employ,27,0.03651902014925733
+Often Not Enough,not_want_employ,1,0.00295700725938738
+Often Not Enough,not_want_employ,2,0.01879994671938181
+Often Not Enough,not_want_employ,3,0.0103540061164602
+Often Not Enough,not_want_employ,4,0.01263285204568884
+Often Not Enough,not_want_employ,5,0.0128861990041151
+Often Not Enough,not_want_employ,6,0.00250260661723489
+Often Not Enough,not_want_employ,7,0.01109594816060541
+Often Not Enough,not_want_employ,8,0.00590645745437204
+Often Not Enough,not_want_employ,9,0.01415409207380448
+Often Not Enough,not_want_employ,10,0.01886124686509976
+Often Not Enough,not_want_employ,11,0.01189064908183782
+Often Not Enough,not_want_employ,12,0.01843845916745885
+Often Not Enough,not_want_employ,13,0.01460991031791517
+Often Not Enough,not_want_employ,14,0.00947245377754246
+Often Not Enough,not_want_employ,15,0.0335194592932507
+Often Not Enough,not_want_employ,16,0.00487556855120217
+Often Not Enough,not_want_employ,17,0.01762365534884778
+Often Not Enough,not_want_employ,18,0.01234538155341197
+Often Not Enough,not_want_employ,19,0.01093979081908044
+Often Not Enough,not_want_employ,20,0.00547056698642283
+Often Not Enough,not_want_employ,21,0.00248172060730547
+Often Not Enough,not_want_employ,22,0.02501275872773581
+Often Not Enough,not_want_employ,23,0.01116643141754924
+Often Not Enough,not_want_employ,24,0.04083717939123531
+Often Not Enough,not_want_employ,25,0.02731501378976724
+Often Not Enough,not_want_employ,26,0.0348343286076376
+Often Not Enough,not_want_employ,27,0.00420933831998959
+Did not report,not_want_employ,1,0.02002196901872172
+Did not report,not_want_employ,2,0.06761697494143352
+Did not report,not_want_employ,3,0.02443155689277222
+Did not report,not_want_employ,4,0.05858730779415976
+Did not report,not_want_employ,5,0.03619534228842394
+Did not report,not_want_employ,6,0.08809095895248763
+Did not report,not_want_employ,7,0.02751785689262464
+Did not report,not_want_employ,8,0.02445994372302222
+Did not report,not_want_employ,9,0.05842168992923469
+Did not report,not_want_employ,10,0.02954307974732754
+Did not report,not_want_employ,11,0.05858295665807778
+Did not report,not_want_employ,12,0.0535580987607278
+Did not report,not_want_employ,13,0.2448739363825272
+Did not report,not_want_employ,14,0.20623835163407195
+Did not report,not_want_employ,15,0.18026364942949852
+Did not report,not_want_employ,16,0.22137959620783776
+Did not report,not_want_employ,17,0.22249284588359663
+Did not report,not_want_employ,18,0.20863617960417857
+Did not report,not_want_employ,19,0.2171467252647926
+Did not report,not_want_employ,20,0.2508941374793387
+Did not report,not_want_employ,21,0.21263949311904393
+Did not report,not_want_employ,22,0.1943915444181477
+Did not report,not_want_employ,23,0.22498506266430893
+Did not report,not_want_employ,24,0.2471040084561212
+Did not report,not_want_employ,25,0.15431144637409103
+Did not report,not_want_employ,26,0.21971791974633345
+Did not report,not_want_employ,27,0.2171055009033596
+Enough - Wanted,covid_symptoms,1,0.17338423278083562
+Enough - Wanted,covid_symptoms,2,0.19764199676907335
+Enough - Wanted,covid_symptoms,3,0.23674699922057676
+Enough - Wanted,covid_symptoms,4,0.29621750970152627
+Enough - Wanted,covid_symptoms,5,0.20905474641416716
+Enough - Wanted,covid_symptoms,6,0.27365548529369194
+Enough - Wanted,covid_symptoms,7,0.14973935266128963
+Enough - Wanted,covid_symptoms,8,0.25957391777756206
+Enough - Wanted,covid_symptoms,9,0.23439268723234147
+Enough - Wanted,covid_symptoms,10,0.3050812759304807
+Enough - Wanted,covid_symptoms,11,0.29475002838188036
+Enough - Wanted,covid_symptoms,12,0.24746474032933655
+Enough - Wanted,covid_symptoms,13,0.24874376192444111
+Enough - Wanted,covid_symptoms,14,0.1919324550080394
+Enough - Wanted,covid_symptoms,15,0.24740337406984625
+Enough - Wanted,covid_symptoms,16,0.26327166751740194
+Enough - Wanted,covid_symptoms,17,0.21446465876861068
+Enough - Wanted,covid_symptoms,18,0.22666287947645883
+Enough - Wanted,covid_symptoms,19,0.2478697235633666
+Enough - Wanted,covid_symptoms,20,0.26406777809393
+Enough - Wanted,covid_symptoms,21,0.25963881829183316
+Enough - Wanted,covid_symptoms,22,0.3691420229768749
+Enough - Wanted,covid_symptoms,23,0.319831736789271
+Enough - Wanted,covid_symptoms,24,0.2871501286633434
+Enough - Wanted,covid_symptoms,25,0.26473923651705383
+Enough - Wanted,covid_symptoms,26,0.27415207539300795
+Enough - Wanted,covid_symptoms,27,0.22216885679374895
+Enough - Not Always Wanted,covid_symptoms,1,0.44525146114155906
+Enough - Not Always Wanted,covid_symptoms,2,0.37142281329001775
+Enough - Not Always Wanted,covid_symptoms,3,0.4755248636009353
+Enough - Not Always Wanted,covid_symptoms,4,0.3193384190840969
+Enough - Not Always Wanted,covid_symptoms,5,0.3050890977250552
+Enough - Not Always Wanted,covid_symptoms,6,0.3638845249341898
+Enough - Not Always Wanted,covid_symptoms,7,0.4182809413393239
+Enough - Not Always Wanted,covid_symptoms,8,0.3650107587690449
+Enough - Not Always Wanted,covid_symptoms,9,0.382929157398392
+Enough - Not Always Wanted,covid_symptoms,10,0.35812691943400016
+Enough - Not Always Wanted,covid_symptoms,11,0.4060156061406503
+Enough - Not Always Wanted,covid_symptoms,12,0.3549355212781968
+Enough - Not Always Wanted,covid_symptoms,13,0.305393440287892
+Enough - Not Always Wanted,covid_symptoms,14,0.3239364546805401
+Enough - Not Always Wanted,covid_symptoms,15,0.29590908522615983
+Enough - Not Always Wanted,covid_symptoms,16,0.3026024610048985
+Enough - Not Always Wanted,covid_symptoms,17,0.33830531941353764
+Enough - Not Always Wanted,covid_symptoms,18,0.31059511906926013
+Enough - Not Always Wanted,covid_symptoms,19,0.3262742035393595
+Enough - Not Always Wanted,covid_symptoms,20,0.3112892074948485
+Enough - Not Always Wanted,covid_symptoms,21,0.30677017452594046
+Enough - Not Always Wanted,covid_symptoms,22,0.2599462892996854
+Enough - Not Always Wanted,covid_symptoms,23,0.26676265448406783
+Enough - Not Always Wanted,covid_symptoms,24,0.3183876945370639
+Enough - Not Always Wanted,covid_symptoms,25,0.32115361154882327
+Enough - Not Always Wanted,covid_symptoms,26,0.3294560049155511
+Enough - Not Always Wanted,covid_symptoms,27,0.34027648900680424
+Sometimes Not Enough,covid_symptoms,1,0.24167062891863456
+Sometimes Not Enough,covid_symptoms,2,0.2808167484103541
+Sometimes Not Enough,covid_symptoms,3,0.21987404520654716
+Sometimes Not Enough,covid_symptoms,4,0.3026735810136594
+Sometimes Not Enough,covid_symptoms,5,0.18407143618975383
+Sometimes Not Enough,covid_symptoms,6,0.3080921316361716
+Sometimes Not Enough,covid_symptoms,7,0.3457620207897235
+Sometimes Not Enough,covid_symptoms,8,0.2898470862094225
+Sometimes Not Enough,covid_symptoms,9,0.2553967085421169
+Sometimes Not Enough,covid_symptoms,10,0.23687580138108455
+Sometimes Not Enough,covid_symptoms,11,0.20578441164669417
+Sometimes Not Enough,covid_symptoms,12,0.3215012542299428
+Sometimes Not Enough,covid_symptoms,13,0.12422209688762106
+Sometimes Not Enough,covid_symptoms,14,0.2518308605392938
+Sometimes Not Enough,covid_symptoms,15,0.15413435131046496
+Sometimes Not Enough,covid_symptoms,16,0.20810457495714108
+Sometimes Not Enough,covid_symptoms,17,0.19079035096761743
+Sometimes Not Enough,covid_symptoms,18,0.20031017087802216
+Sometimes Not Enough,covid_symptoms,19,0.1317339630694635
+Sometimes Not Enough,covid_symptoms,20,0.16718329001819837
+Sometimes Not Enough,covid_symptoms,21,0.18028734004293476
+Sometimes Not Enough,covid_symptoms,22,0.1457808333422704
+Sometimes Not Enough,covid_symptoms,23,0.18166613875718585
+Sometimes Not Enough,covid_symptoms,24,0.1755603067070003
+Sometimes Not Enough,covid_symptoms,25,0.12860417831545773
+Sometimes Not Enough,covid_symptoms,26,0.2051048719882035
+Sometimes Not Enough,covid_symptoms,27,0.20003956629990513
+Often Not Enough,covid_symptoms,1,0.13643452109581214
+Often Not Enough,covid_symptoms,2,0.110125374693319
+Often Not Enough,covid_symptoms,3,0.06140358534684333
+Often Not Enough,covid_symptoms,4,0.05395780154548447
+Often Not Enough,covid_symptoms,5,0.2767564754354155
+Often Not Enough,covid_symptoms,6,0.0464026539861985
+Often Not Enough,covid_symptoms,7,0.07088916271927981
+Often Not Enough,covid_symptoms,8,0.06615452233055014
+Often Not Enough,covid_symptoms,9,0.06598912610394717
+Often Not Enough,covid_symptoms,10,0.07448531492043446
+Often Not Enough,covid_symptoms,11,0.02068250122851532
+Often Not Enough,covid_symptoms,12,0.0611628338290513
+Often Not Enough,covid_symptoms,13,0.12497261410576352
+Often Not Enough,covid_symptoms,14,0.03103927030365109
+Often Not Enough,covid_symptoms,15,0.07026224453804021
+Often Not Enough,covid_symptoms,16,0.07877282685788356
+Often Not Enough,covid_symptoms,17,0.08394277361291455
+Often Not Enough,covid_symptoms,18,0.04743682966733321
+Often Not Enough,covid_symptoms,19,0.11080512705960516
+Often Not Enough,covid_symptoms,20,0.0424376050447549
+Often Not Enough,covid_symptoms,21,0.06710665915440345
+Often Not Enough,covid_symptoms,22,0.0558617779036677
+Often Not Enough,covid_symptoms,23,0.0463488534017711
+Often Not Enough,covid_symptoms,24,0.02269830748193413
+Often Not Enough,covid_symptoms,25,0.03064072586794083
+Often Not Enough,covid_symptoms,26,0.038015133997053
+Often Not Enough,covid_symptoms,27,0.03444977603841123
+Did not report,covid_symptoms,1,0.00325915606315862
+Did not report,covid_symptoms,2,0.03999306683723581
+Did not report,covid_symptoms,3,0.00645050662509742
+Did not report,covid_symptoms,4,0.027812688655233
+Did not report,covid_symptoms,5,0.02502824423560827
+Did not report,covid_symptoms,6,0.00796520414974811
+Did not report,covid_symptoms,7,0.01532852249038309
+Did not report,covid_symptoms,8,0.01941371491342039
+Did not report,covid_symptoms,9,0.06129232072320248
+Did not report,covid_symptoms,10,0.02543068833400011
+Did not report,covid_symptoms,11,0.07276745260225981
+Did not report,covid_symptoms,12,0.01493565033347258
+Did not report,covid_symptoms,13,0.19666808679428227
+Did not report,covid_symptoms,14,0.2012609594684756
+Did not report,covid_symptoms,15,0.2322909448554887
+Did not report,covid_symptoms,16,0.1472484696626749
+Did not report,covid_symptoms,17,0.17249689723731965
+Did not report,covid_symptoms,18,0.21499500090892565
+Did not report,covid_symptoms,19,0.18331698276820532
+Did not report,covid_symptoms,20,0.21502211934826815
+Did not report,covid_symptoms,21,0.18619700798488817
+Did not report,covid_symptoms,22,0.16926907647750164
+Did not report,covid_symptoms,23,0.18539061656770425
+Did not report,covid_symptoms,24,0.1962035626106583
+Did not report,covid_symptoms,25,0.25486224775072436
+Did not report,covid_symptoms,26,0.1532719137061844
+Did not report,covid_symptoms,27,0.20306531186113044
+Enough - Wanted,covid_other,1,0.37487686314908414
+Enough - Wanted,covid_other,2,0.09453182003073664
+Enough - Wanted,covid_other,3,0.49775079883579143
+Enough - Wanted,covid_other,4,0.4019122118474112
+Enough - Wanted,covid_other,5,0.11224999777676992
+Enough - Wanted,covid_other,6,0.10799898700037584
+Enough - Wanted,covid_other,7,0.3226776756063833
+Enough - Wanted,covid_other,8,0.4141626498947077
+Enough - Wanted,covid_other,9,0.18310014430140437
+Enough - Wanted,covid_other,10,0.18263241901723676
+Enough - Wanted,covid_other,11,0.322969020108432
+Enough - Wanted,covid_other,12,0.24118024121833384
+Enough - Wanted,covid_other,13,0.23724310119542041
+Enough - Wanted,covid_other,14,0.2263954219224023
+Enough - Wanted,covid_other,15,0.18173398043422417
+Enough - Wanted,covid_other,16,0.3647668935724094
+Enough - Wanted,covid_other,17,0.35683816356713555
+Enough - Wanted,covid_other,18,0.10824819818873316
+Enough - Wanted,covid_other,19,0.3043521710393522
+Enough - Wanted,covid_other,20,0.3030580537213541
+Enough - Wanted,covid_other,21,0.1929015481250004
+Enough - Wanted,covid_other,22,0.25454491843399163
+Enough - Wanted,covid_other,23,0.16678124677607983
+Enough - Wanted,covid_other,24,0.23411434253120228
+Enough - Wanted,covid_other,25,0.26834388364561107
+Enough - Wanted,covid_other,26,0.18312696518059923
+Enough - Wanted,covid_other,27,0.2328869439805848
+Enough - Not Always Wanted,covid_other,1,0.2580626468789235
+Enough - Not Always Wanted,covid_other,2,0.3244346877824187
+Enough - Not Always Wanted,covid_other,3,0.11538838105579836
+Enough - Not Always Wanted,covid_other,4,0.26779052465874537
+Enough - Not Always Wanted,covid_other,5,0.18030573860149937
+Enough - Not Always Wanted,covid_other,6,0.25838265254274195
+Enough - Not Always Wanted,covid_other,7,0.3348464376918718
+Enough - Not Always Wanted,covid_other,8,0.35369803109498754
+Enough - Not Always Wanted,covid_other,9,0.41823175111173205
+Enough - Not Always Wanted,covid_other,10,0.597314716386432
+Enough - Not Always Wanted,covid_other,11,0.3666267858068102
+Enough - Not Always Wanted,covid_other,12,0.2648213192662045
+Enough - Not Always Wanted,covid_other,13,0.2085225717972756
+Enough - Not Always Wanted,covid_other,14,0.2687476316571706
+Enough - Not Always Wanted,covid_other,15,0.42891124580807766
+Enough - Not Always Wanted,covid_other,16,0.3874834138266962
+Enough - Not Always Wanted,covid_other,17,0.2129834167217345
+Enough - Not Always Wanted,covid_other,18,0.48253997604589105
+Enough - Not Always Wanted,covid_other,19,0.3081041449813391
+Enough - Not Always Wanted,covid_other,20,0.2254078400908303
+Enough - Not Always Wanted,covid_other,21,0.4115014768595196
+Enough - Not Always Wanted,covid_other,22,0.27562307879431214
+Enough - Not Always Wanted,covid_other,23,0.3762677862862781
+Enough - Not Always Wanted,covid_other,24,0.2755516678294533
+Enough - Not Always Wanted,covid_other,25,0.35315600413142983
+Enough - Not Always Wanted,covid_other,26,0.1957273432383854
+Enough - Not Always Wanted,covid_other,27,0.1793291935496533
+Sometimes Not Enough,covid_other,1,0.3207320606509352
+Sometimes Not Enough,covid_other,2,0.09925943980791968
+Sometimes Not Enough,covid_other,3,0.3186469190305382
+Sometimes Not Enough,covid_other,4,0.22600705151704656
+Sometimes Not Enough,covid_other,5,0.5463347828793498
+Sometimes Not Enough,covid_other,6,0.27179683227920076
+Sometimes Not Enough,covid_other,7,0.15891489076376683
+Sometimes Not Enough,covid_other,8,0.15205929334037036
+Sometimes Not Enough,covid_other,9,0.12207440363787989
+Sometimes Not Enough,covid_other,10,0.2101224338953604
+Sometimes Not Enough,covid_other,11,0.20852076552409576
+Sometimes Not Enough,covid_other,12,0.37047846977940424
+Sometimes Not Enough,covid_other,13,0.29872232665756704
+Sometimes Not Enough,covid_other,14,0.37146847466241895
+Sometimes Not Enough,covid_other,15,0.17775000520735695
+Sometimes Not Enough,covid_other,16,0.0830555288663267
+Sometimes Not Enough,covid_other,17,0.13628622675351648
+Sometimes Not Enough,covid_other,18,0.18623857452039252
+Sometimes Not Enough,covid_other,19,0.2964089097507787
+Sometimes Not Enough,covid_other,20,0.11449326242194267
+Sometimes Not Enough,covid_other,21,0.1521083910581718
+Sometimes Not Enough,covid_other,22,0.16245531008351946
+Sometimes Not Enough,covid_other,23,0.22710875805275657
+Sometimes Not Enough,covid_other,24,0.20158179333473575
+Sometimes Not Enough,covid_other,25,0.12817689994485337
+Sometimes Not Enough,covid_other,26,0.2986412677475837
+Sometimes Not Enough,covid_other,27,0.07112809292195682
+Often Not Enough,covid_other,1,0.03668029488458938
+Often Not Enough,covid_other,2,0.29182408252996506
+Often Not Enough,covid_other,3,0.06254238947583911
+Often Not Enough,covid_other,4,0.07408405753347853
+Often Not Enough,covid_other,5,0.12458092112868945
+Often Not Enough,covid_other,6,0.3568904137651809
+Often Not Enough,covid_other,7,0.1696388016098123
+Often Not Enough,covid_other,8,0.05391212255640284
+Often Not Enough,covid_other,9,0.24217748854430227
+Often Not Enough,covid_other,10,0.00906174368210727
+Often Not Enough,covid_other,11,0.0708882283948582
+Often Not Enough,covid_other,12,0.09352136208758154
+Often Not Enough,covid_other,13,0.04898908205379796
+Often Not Enough,covid_other,14,0.04824044891300155
+Often Not Enough,covid_other,15,0.08750303762488978
+Often Not Enough,covid_other,16,0.07601605894279032
+Often Not Enough,covid_other,17,0.07732150162056704
+Often Not Enough,covid_other,18,0.09220062616881344
+Often Not Enough,covid_other,19,0.02568993972303466
+Often Not Enough,covid_other,20,0.13271758941109685
+Often Not Enough,covid_other,21,0.08835774065514802
+Often Not Enough,covid_other,22,0.05752670337689909
+Often Not Enough,covid_other,23,0.09698852262747652
+Often Not Enough,covid_other,24,0.18291187994594177
+Often Not Enough,covid_other,25,0.12249770730017966
+Often Not Enough,covid_other,26,0.20117643780392083
+Often Not Enough,covid_other,27,0.02561477133433444
+Did not report,covid_other,1,0.00964813443646782
+Did not report,covid_other,2,0.1899499698489599
+Did not report,covid_other,3,0.00567151160203291
+Did not report,covid_other,4,0.03020615444331831
+Did not report,covid_other,5,0.03652855961369154
+Did not report,covid_other,6,0.00493111441250054
+Did not report,covid_other,7,0.0139221943281658
+Did not report,covid_other,8,0.02616790311353159
+Did not report,covid_other,9,0.03441621240468139
+Did not report,covid_other,10,8.686870188636767e-4
+Did not report,covid_other,11,0.03099520016580389
+Did not report,covid_other,12,0.0299986076484759
+Did not report,covid_other,13,0.206522918295939
+Did not report,covid_other,14,0.08514802284500657
+Did not report,covid_other,15,0.12410173092545149
+Did not report,covid_other,16,0.08867810479177739
+Did not report,covid_other,17,0.21657069133704648
+Did not report,covid_other,18,0.13077262507616985
+Did not report,covid_other,19,0.06544483450549538
+Did not report,covid_other,20,0.22432325435477607
+Did not report,covid_other,21,0.1551308433021602
+Did not report,covid_other,22,0.24984998931127772
+Did not report,covid_other,23,0.13285368625740906
+Did not report,covid_other,24,0.10584031635866696
+Did not report,covid_other,25,0.1278255049779261
+Did not report,covid_other,26,0.1213279860295108
+Did not report,covid_other,27,0.49104099821347064
+Enough - Wanted,children,1,0.3937603047409908
+Enough - Wanted,children,2,0.32765186274219593
+Enough - Wanted,children,3,0.33584710990713407
+Enough - Wanted,children,4,0.3688788457408498
+Enough - Wanted,children,5,0.335788453557533
+Enough - Wanted,children,6,0.3412828824445654
+Enough - Wanted,children,7,0.2852225182427844
+Enough - Wanted,children,8,0.3469040213472848
+Enough - Wanted,children,9,0.3441802674460464
+Enough - Wanted,children,10,0.3203055582562234
+Enough - Wanted,children,11,0.32640866818189873
+Enough - Wanted,children,12,0.31924452947737003
+Enough - Wanted,children,13,0.32938426958500755
+Enough - Wanted,children,14,0.3241440782751969
+Enough - Wanted,children,15,0.31158183938142675
+Enough - Wanted,children,16,0.32217532267355214
+Enough - Wanted,children,17,0.3376849433360093
+Enough - Wanted,children,18,0.320624040189225
+Enough - Wanted,children,19,0.2978275214794109
+Enough - Wanted,children,20,0.2653831009706423
+Enough - Wanted,children,21,0.27881379573359133
+Enough - Wanted,children,22,0.31071524592076394
+Enough - Wanted,children,23,0.3461066188952533
+Enough - Wanted,children,24,0.373618937341446
+Enough - Wanted,children,25,0.3400818521707833
+Enough - Wanted,children,26,0.3904930379788117
+Enough - Wanted,children,27,0.4178281853259876
+Enough - Not Always Wanted,children,1,0.3972371622985067
+Enough - Not Always Wanted,children,2,0.4403060771409119
+Enough - Not Always Wanted,children,3,0.42433137397233034
+Enough - Not Always Wanted,children,4,0.4228961130728283
+Enough - Not Always Wanted,children,5,0.4017279038028301
+Enough - Not Always Wanted,children,6,0.3977978930087319
+Enough - Not Always Wanted,children,7,0.4157027284987462
+Enough - Not Always Wanted,children,8,0.4207756939681919
+Enough - Not Always Wanted,children,9,0.4219304192868996
+Enough - Not Always Wanted,children,10,0.46677252110395784
+Enough - Not Always Wanted,children,11,0.4276621140233891
+Enough - Not Always Wanted,children,12,0.4240151113561571
+Enough - Not Always Wanted,children,13,0.3440388885788907
+Enough - Not Always Wanted,children,14,0.32572862742284836
+Enough - Not Always Wanted,children,15,0.37363681655864905
+Enough - Not Always Wanted,children,16,0.3206745964613979
+Enough - Not Always Wanted,children,17,0.3138419926426843
+Enough - Not Always Wanted,children,18,0.3251578489267131
+Enough - Not Always Wanted,children,19,0.3274356927225144
+Enough - Not Always Wanted,children,20,0.33977751632605985
+Enough - Not Always Wanted,children,21,0.3127534379277915
+Enough - Not Always Wanted,children,22,0.28896275258161896
+Enough - Not Always Wanted,children,23,0.3130614860446558
+Enough - Not Always Wanted,children,24,0.2700790482935983
+Enough - Not Always Wanted,children,25,0.284620352586204
+Enough - Not Always Wanted,children,26,0.2643650864001473
+Enough - Not Always Wanted,children,27,0.2398701008624044
+Sometimes Not Enough,children,1,0.15259881645513593
+Sometimes Not Enough,children,2,0.17444763480363942
+Sometimes Not Enough,children,3,0.1869999355763364
+Sometimes Not Enough,children,4,0.14419230250409917
+Sometimes Not Enough,children,5,0.21466971374561788
+Sometimes Not Enough,children,6,0.19729301290805712
+Sometimes Not Enough,children,7,0.18506775951116575
+Sometimes Not Enough,children,8,0.17841009921346454
+Sometimes Not Enough,children,9,0.1792723206054241
+Sometimes Not Enough,children,10,0.15917329974172223
+Sometimes Not Enough,children,11,0.19244930987729655
+Sometimes Not Enough,children,12,0.2134065594985327
+Sometimes Not Enough,children,13,0.14771191550521184
+Sometimes Not Enough,children,14,0.19871285180900508
+Sometimes Not Enough,children,15,0.14646415902646845
+Sometimes Not Enough,children,16,0.186309382749277
+Sometimes Not Enough,children,17,0.15063624827369113
+Sometimes Not Enough,children,18,0.17673981390100704
+Sometimes Not Enough,children,19,0.15747950053280968
+Sometimes Not Enough,children,20,0.1958866998195221
+Sometimes Not Enough,children,21,0.18755126274486136
+Sometimes Not Enough,children,22,0.1721049155772651
+Sometimes Not Enough,children,23,0.11320995296000454
+Sometimes Not Enough,children,24,0.14931412676181097
+Sometimes Not Enough,children,25,0.18678983245259664
+Sometimes Not Enough,children,26,0.13897374971410595
+Sometimes Not Enough,children,27,0.12020269474909398
+Often Not Enough,children,1,0.0397139583751603
+Often Not Enough,children,2,0.03208843544127272
+Often Not Enough,children,3,0.02471636299179611
+Often Not Enough,children,4,0.04353916511198345
+Often Not Enough,children,5,0.03010157339267199
+Often Not Enough,children,6,0.04698472546003502
+Often Not Enough,children,7,0.05915635255616568
+Often Not Enough,children,8,0.03205346389617951
+Often Not Enough,children,9,0.03709411918753023
+Often Not Enough,children,10,0.03206765947913276
+Often Not Enough,children,11,0.01372765985461485
+Often Not Enough,children,12,0.02713718453812095
+Often Not Enough,children,13,0.03248299328941231
+Often Not Enough,children,14,0.04291306839686165
+Often Not Enough,children,15,0.03231078815828756
+Often Not Enough,children,16,0.03843264038292263
+Often Not Enough,children,17,0.04039648326982684
+Often Not Enough,children,18,0.05069402648426044
+Often Not Enough,children,19,0.07730290647075784
+Often Not Enough,children,20,0.05564974022861586
+Often Not Enough,children,21,0.05408669678468293
+Often Not Enough,children,22,0.03461170765900692
+Often Not Enough,children,23,0.04225477577674942
+Often Not Enough,children,24,0.03285386679804918
+Often Not Enough,children,25,0.02965706349713578
+Often Not Enough,children,26,0.05660931962724228
+Often Not Enough,children,27,0.04346413941821343
+Did not report,children,1,0.01668975813020626
+Did not report,children,2,0.02550598987197998
+Did not report,children,3,0.02810521755240307
+Did not report,children,4,0.02049357357023929
+Did not report,children,5,0.01771235550134705
+Did not report,children,6,0.01664148617861057
+Did not report,children,7,0.05485064119113802
+Did not report,children,8,0.02185672157487919
+Did not report,children,9,0.01752287347409963
+Did not report,children,10,0.02168096141896376
+Did not report,children,11,0.03975224806280065
+Did not report,children,12,0.0161966151298192
+Did not report,children,13,0.14638193304147756
+Did not report,children,14,0.10850137409608798
+Did not report,children,15,0.13600639687516822
+Did not report,children,16,0.1324080577328503
+Did not report,children,17,0.1574403324777884
+Did not report,children,18,0.12678427049879434
+Did not report,children,19,0.13995437879450726
+Did not report,children,20,0.14330294265515994
+Did not report,children,21,0.1667948068090729
+Did not report,children,22,0.1936053782613451
+Did not report,children,23,0.1853671663233369
+Did not report,children,24,0.17413402080509555
+Did not report,children,25,0.15885089929328028
+Did not report,children,26,0.14955880627969276
+Did not report,children,27,0.17863487964430058
+Enough - Wanted,sick_not_covid,1,0.4370585170537093
+Enough - Wanted,sick_not_covid,2,0.34538548718374673
+Enough - Wanted,sick_not_covid,3,0.3083705395387731
+Enough - Wanted,sick_not_covid,4,0.3009152107435666
+Enough - Wanted,sick_not_covid,5,0.31075813808569513
+Enough - Wanted,sick_not_covid,6,0.30577461338286205
+Enough - Wanted,sick_not_covid,7,0.3734425448990056
+Enough - Wanted,sick_not_covid,8,0.3709837835383618
+Enough - Wanted,sick_not_covid,9,0.32661303502366207
+Enough - Wanted,sick_not_covid,10,0.34037155214839965
+Enough - Wanted,sick_not_covid,11,0.33232642068483287
+Enough - Wanted,sick_not_covid,12,0.34707913110688937
+Enough - Wanted,sick_not_covid,13,0.3422856372291817
+Enough - Wanted,sick_not_covid,14,0.30576754148231017
+Enough - Wanted,sick_not_covid,15,0.3679379153421265
+Enough - Wanted,sick_not_covid,16,0.32046723300970875
+Enough - Wanted,sick_not_covid,17,0.30356651878346147
+Enough - Wanted,sick_not_covid,18,0.2916348105162514
+Enough - Wanted,sick_not_covid,19,0.26664988243658944
+Enough - Wanted,sick_not_covid,20,0.260302835306936
+Enough - Wanted,sick_not_covid,21,0.2824684235615178
+Enough - Wanted,sick_not_covid,22,0.26213143034940045
+Enough - Wanted,sick_not_covid,23,0.3578430015995395
+Enough - Wanted,sick_not_covid,24,0.2794746386753822
+Enough - Wanted,sick_not_covid,25,0.3117505222937019
+Enough - Wanted,sick_not_covid,26,0.3544280001851514
+Enough - Wanted,sick_not_covid,27,0.3475071718134055
+Enough - Not Always Wanted,sick_not_covid,1,0.3739037057931925
+Enough - Not Always Wanted,sick_not_covid,2,0.4023813831781526
+Enough - Not Always Wanted,sick_not_covid,3,0.4071632669043021
+Enough - Not Always Wanted,sick_not_covid,4,0.4689607643423632
+Enough - Not Always Wanted,sick_not_covid,5,0.4206341419955321
+Enough - Not Always Wanted,sick_not_covid,6,0.41084428406886897
+Enough - Not Always Wanted,sick_not_covid,7,0.42636604119752575
+Enough - Not Always Wanted,sick_not_covid,8,0.43529092014357457
+Enough - Not Always Wanted,sick_not_covid,9,0.4354459131853284
+Enough - Not Always Wanted,sick_not_covid,10,0.4412499517847989
+Enough - Not Always Wanted,sick_not_covid,11,0.404707070095344
+Enough - Not Always Wanted,sick_not_covid,12,0.4101733248707485
+Enough - Not Always Wanted,sick_not_covid,13,0.3620576840415221
+Enough - Not Always Wanted,sick_not_covid,14,0.3500865856261714
+Enough - Not Always Wanted,sick_not_covid,15,0.3526346395611743
+Enough - Not Always Wanted,sick_not_covid,16,0.38148260517799354
+Enough - Not Always Wanted,sick_not_covid,17,0.3597666496400432
+Enough - Not Always Wanted,sick_not_covid,18,0.34965214526289184
+Enough - Not Always Wanted,sick_not_covid,19,0.38975057073762265
+Enough - Not Always Wanted,sick_not_covid,20,0.32027891833499844
+Enough - Not Always Wanted,sick_not_covid,21,0.3774094153178089
+Enough - Not Always Wanted,sick_not_covid,22,0.4127785709715118
+Enough - Not Always Wanted,sick_not_covid,23,0.32356913165483153
+Enough - Not Always Wanted,sick_not_covid,24,0.3669197214736248
+Enough - Not Always Wanted,sick_not_covid,25,0.3650223368523602
+Enough - Not Always Wanted,sick_not_covid,26,0.33907436569106353
+Enough - Not Always Wanted,sick_not_covid,27,0.34939672835201785
+Sometimes Not Enough,sick_not_covid,1,0.1391651524419753
+Sometimes Not Enough,sick_not_covid,2,0.1810749415802161
+Sometimes Not Enough,sick_not_covid,3,0.2303022868914615
+Sometimes Not Enough,sick_not_covid,4,0.16610258010493462
+Sometimes Not Enough,sick_not_covid,5,0.2035026423154875
+Sometimes Not Enough,sick_not_covid,6,0.208205936562714
+Sometimes Not Enough,sick_not_covid,7,0.1560446951024837
+Sometimes Not Enough,sick_not_covid,8,0.147413412570091
+Sometimes Not Enough,sick_not_covid,9,0.17640248774657089
+Sometimes Not Enough,sick_not_covid,10,0.16073158841552534
+Sometimes Not Enough,sick_not_covid,11,0.1904230877796027
+Sometimes Not Enough,sick_not_covid,12,0.19897051667772425
+Sometimes Not Enough,sick_not_covid,13,0.15956691518602908
+Sometimes Not Enough,sick_not_covid,14,0.20520961041776797
+Sometimes Not Enough,sick_not_covid,15,0.1518263825227084
+Sometimes Not Enough,sick_not_covid,16,0.14498035136384652
+Sometimes Not Enough,sick_not_covid,17,0.15125462005850968
+Sometimes Not Enough,sick_not_covid,18,0.1802063239916194
+Sometimes Not Enough,sick_not_covid,19,0.1524310038466672
+Sometimes Not Enough,sick_not_covid,20,0.21011389938532896
+Sometimes Not Enough,sick_not_covid,21,0.16246135163441397
+Sometimes Not Enough,sick_not_covid,22,0.1644846547871579
+Sometimes Not Enough,sick_not_covid,23,0.14419214701071273
+Sometimes Not Enough,sick_not_covid,24,0.178570929964982
+Sometimes Not Enough,sick_not_covid,25,0.15324059567256426
+Sometimes Not Enough,sick_not_covid,26,0.1451986268565917
+Sometimes Not Enough,sick_not_covid,27,0.11322416617034844
+Often Not Enough,sick_not_covid,1,0.04404693320434488
+Often Not Enough,sick_not_covid,2,0.05814722959597769
+Often Not Enough,sick_not_covid,3,0.04399389607961317
+Often Not Enough,sick_not_covid,4,0.04183853983903284
+Often Not Enough,sick_not_covid,5,0.04485354920222841
+Often Not Enough,sick_not_covid,6,0.04376920908088572
+Often Not Enough,sick_not_covid,7,0.03274705190632592
+Often Not Enough,sick_not_covid,8,0.0314846298010589
+Often Not Enough,sick_not_covid,9,0.04460502145450102
+Often Not Enough,sick_not_covid,10,0.03568645201646427
+Often Not Enough,sick_not_covid,11,0.05935471041718947
+Often Not Enough,sick_not_covid,12,0.03751454998659566
+Often Not Enough,sick_not_covid,13,0.0633715679326394
+Often Not Enough,sick_not_covid,14,0.03826182219296608
+Often Not Enough,sick_not_covid,15,0.04236821957313459
+Often Not Enough,sick_not_covid,16,0.04113369741100323
+Often Not Enough,sick_not_covid,17,0.05611611541444223
+Often Not Enough,sick_not_covid,18,0.06709222636841039
+Often Not Enough,sick_not_covid,19,0.06160006426926291
+Often Not Enough,sick_not_covid,20,0.0513942157021306
+Often Not Enough,sick_not_covid,21,0.06973144825980344
+Often Not Enough,sick_not_covid,22,0.04806730381650016
+Often Not Enough,sick_not_covid,23,0.0530244328528006
+Often Not Enough,sick_not_covid,24,0.03514267640661692
+Often Not Enough,sick_not_covid,25,0.05923850244335568
+Often Not Enough,sick_not_covid,26,0.02294047381760506
+Often Not Enough,sick_not_covid,27,0.04625950414833055
+Did not report,sick_not_covid,1,0.00582569150677811
+Did not report,sick_not_covid,2,0.01301095846190696
+Did not report,sick_not_covid,3,0.01017001058585019
+Did not report,sick_not_covid,4,0.02218290497010279
+Did not report,sick_not_covid,5,0.02025152840105682
+Did not report,sick_not_covid,6,0.03140595690466925
+Did not report,sick_not_covid,7,0.01139966689465902
+Did not report,sick_not_covid,8,0.01482725394691372
+Did not report,sick_not_covid,9,0.01693354258993768
+Did not report,sick_not_covid,10,0.02196045563481179
+Did not report,sick_not_covid,11,0.0131887110230309
+Did not report,sick_not_covid,12,0.00626247735804224
+Did not report,sick_not_covid,13,0.07271819561062774
+Did not report,sick_not_covid,14,0.1006744402807844
+Did not report,sick_not_covid,15,0.08523284300085623
+Did not report,sick_not_covid,16,0.111936113037448
+Did not report,sick_not_covid,17,0.12929609610354348
+Did not report,sick_not_covid,18,0.11141449386082694
+Did not report,sick_not_covid,19,0.1295684787098578
+Did not report,sick_not_covid,20,0.15791013127060602
+Did not report,sick_not_covid,21,0.10792936122645588
+Did not report,sick_not_covid,22,0.11253804007542964
+Did not report,sick_not_covid,23,0.1213712868821156
+Did not report,sick_not_covid,24,0.13989203347939408
+Did not report,sick_not_covid,25,0.11074804273801794
+Did not report,sick_not_covid,26,0.13835853344958826
+Did not report,sick_not_covid,27,0.14361242951589764

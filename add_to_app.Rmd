@@ -1,0 +1,101 @@
+---
+title: "info to add to app"
+author: "Erika Egg"
+date: "3/7/2022"
+output: html_document
+---
+
+```{r}
+#put this right before my_theme in app
+
+#widget 5
+first <- read_csv(here("data/1_27_widget_5_new.csv"))
+#first <- read_csv("1_27_widget_5.csv")
+first$response <- factor(first$response, levels = c("Did not report",
+                                                 "Often Not Enough",
+                                                 "Sometimes Not Enough",
+                                                 "Enough - Not Always Wanted",
+                                                 "Enough - Wanted"))
+second <- read_csv(here("data/28_36_widget_5_new.csv"))
+#second <- read_csv("28_36_widget_5.csv")
+second$response <- factor(second$response, levels = c("Did not report",
+                                                  "Often Not Enough",
+                                                  "Sometimes Not Enough",
+                                                  "Enough - Not Always Wanted",
+                                                  "Enough - Wanted"))
+```
+
+```{r}
+#add this after end tabPanel thing 5
+
+tabPanel("Work Stack",
+                                    sidebarLayout(
+                                      sidebarPanel("WIDGET",
+                                                   selectInput(inputId = "pick_reasonstack", label = h3("Week:"),
+                                                               choices = 1:36)
+                                                               # choices = unique(us_absent_no_geom$reason_not_working) #idk how to remove NA
+                                                               # selected = 1
+                                                                # end checkboxGroupInput
+                                      ), # end sidebarPanel
+
+                                      mainPanel("OUTPUT!",
+                                                plotOutput("workstack_plot")
+                                      )
+
+                                    ) # end sidebarLayout
+
+                           ), # end tabPanel thing 6
+#right after the above line should be ) # end navbarPage
+```
+
+```{r}
+#add after WIDGET 4 END
+
+#WIDGET 5 START
+    widget5 <- reactive({
+      #if (input$pick_reasonstack <= 27) {
+        #first %>%
+          #pivot_longer(!c(reason, name), names_to="week",values_to="values") %>%
+          #filter(week %in% input$pick_reasonstack) %>%
+          #rename(response = name) #%>%
+          #factor(first$response, levels = c("Did not report",
+                                                  #"Often Not Enough",
+                                                  #"Sometimes Not Enough",
+                                                  #"Enough - Not Always Wanted",
+                                                  #"Enough - Wanted"))
+      #}
+
+      if (input$pick_reasonstack < 28) {
+        first %>%
+          #pivot_longer(!c(reason, name), names_to="week",values_to="values") %>%
+          filter(week %in% input$pick_reasonstack) #%>%
+          #rename(response = name)  #%>%
+          #factor(second$response, levels = c("Did not report",
+                                                  #"Often Not Enough",
+                                                  #"Sometimes Not Enough",
+                                                  #"Enough - Not Always Wanted",
+                                                  #"Enough - Wanted"))
+      }
+
+       else {
+        second %>%
+          #pivot_longer(!c(reason, name), names_to="week",values_to="values") %>%
+          filter(week %in% input$pick_reasonstack) #%>%
+          #rename(response = name) #%>%
+          #factor(first$response, levels = c("Did not report",
+                                                  #"Often Not Enough",
+                                                  #"Sometimes Not Enough",
+                                                  #"Enough - Not Always Wanted",
+                                                  #"Enough - Wanted"))
+      }
+
+    }) # end food_reactive
+
+    output$workstack_plot <- renderPlot(
+      ggplot(data=widget5(), aes(fill=response, y=values, x=reason)) +
+        geom_bar(position="stack", stat="identity")
+    ) # end output$work_plot
+    #WIDGET 5 END
+#after the above line should be }
+```
+
