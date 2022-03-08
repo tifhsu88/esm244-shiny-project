@@ -1,18 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
+#title
+#darkest:#528257
+light aqua: #c8e6cb
+beige:#ffffe3
+yellow:#ffec45
+
+
+
 
 h1{
-  background-color: #F5F5DC;
+
   font-family: 'Courier Prime', monospace;
-	font-size: 18px;
-	color: purple;
+	font-size: 80px;
+	color: #528257;
+
+}
+
+h2{
+
+  font-family: 'Courier Prime', monospace;
+	font-size: 40px;
+	color: #528257;
+
+}
+
+h3{
+
+  font-family: 'Courier Prime', monospace;
+	font-size: 40px;
+	color: #528257;
+
+}
+
+h4{
+
+  font-family: 'Jost', sans-serif;
+	font-size: 30px;
+	color: #528257;
+
+}
+
+h5{
+
+  font-family: 'Courier Prime', monospace;
+	font-size: 20px;
+	color: #528257;
 
 }
 
 body{
-  background-color: #F5F5DC;
-  font-family: 'Courier Prime', monospace;
-	font-size: 18px;
-	color: teal;
+  background-color: #ffffe3;
+  font-family: 'Jost', sans-serif;
+  font-size: 24px;
+	color: #528257;
 
 }
+
+.navbar-default {
+    background-color: #ffffe3 !important;
+}
+
+.navbar-default:hover {
+    background-color: #ffffe3 !important;
+    color: #528257;
+}
+
+
+
 
