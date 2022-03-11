@@ -81,7 +81,7 @@ plot_data <- us_absent %>%
 
 ```
 
-## WIDGET 1 : AGE (DONE)
+## WIDGET 1 : AGE 
 ```{r}
 # step 1: only filter for only age ranges
 age_df <- us_absent_no_geom %>% 
@@ -117,7 +117,7 @@ age_by_week <- age_df %>%
 
 ```
 
-## WIDGET 2: INCOME (DONE)
+## WIDGET 2: INCOME 
 ```{r}
 # step 1: only filter for only age ranges
 income_df <- us_absent_no_geom %>% 
@@ -152,30 +152,6 @@ income_by_week <- income_df %>%
 
 #export finalized df for age widget to csv
 #write_csv(x = income_by_week, "data/income_ratios.csv")
-
-```
-
-
-## WIDGET 3
-
-```{r}
-map_df <- covid_food_merged 
-
-
-map_by_anxiety <- covid_food_merged %>% 
-  group_by(location, freq_feel_anxious, week) %>%
-  mutate(mean_pct = mean(response_pct)) %>%
-  select(location, mean_pct, freq_feel_anxious, geometry) %>%
-  distinct() %>%
-  group_by(location) %>%
-  mutate(sum_anx = sum(mean_pct))%>%
-  write_sf("data/map_anxiety.shp")
-
- map_widget_df <- read_sf(here("data/map_anxiety.shp")) 
-
-
-#export finalized df for age widget to csv
-#write_sf(x = map_by_anxiety, "data/map_anxiety.")
 
 ```
 
