@@ -1,3 +1,12 @@
+###############################################
+#### Food Security in the face of COVID-19 ####
+###############################################
+
+# Focusing on attributes like age range, income range, anxiety levels, and reasons for not working from April 2020 through August 2021, we hope to help individuals understand more about the drivers of food insecurity (especially during the pandemic) and be better prepared in addressing food insecurity in unexpected crises.
+
+# Authors: Erika Egg, Tiffany Hsu
+
+
 library(shiny)
 library(tidyverse)
 library(bslib)
@@ -12,27 +21,20 @@ library(shinyWidgets) # background gradient
 covid_food <- data.table::fread(here("data/covid_food.csv")) %>%
   clean_names()
 
-#AGE WIDGET DF
-
+# AGE WIDGET DF
 age_widget_df <- read_csv(here("data/age_ratios.csv"))
 
-#INCOME WIDGET DF
-
+#I NCOME WIDGET DF
 income_widget_df <- read_csv(here("data/income_ratios.csv"))
 
-
-#MAP WIDGET DF
-
+# MAP WIDGET DF
 map_widget_df <- read_sf(here("data/map_anxiety.shp"))
 
-
-#WORK WIDGET DF
-
+# WORK WIDGET DF
 work_widget_df <- read_csv(here("data/work_ratios.csv"))
 
-#widget 5
+# widget 5
 first <- read_csv(here("data/1_27_widget_5_new.csv"))
-#first <- read_csv("1_27_widget_5.csv")
 first$response <- factor(first$response, levels = c("Did not report",
                                                     "Often Not Enough",
                                                     "Sometimes Not Enough",
@@ -40,7 +42,6 @@ first$response <- factor(first$response, levels = c("Did not report",
                                                     "Enough - Wanted"))
 
 second <- read_csv(here("data/28_36_widget_5_new.csv"))
-#second <- read_csv("28_36_widget_5.csv")
 second$response <- factor(second$response, levels = c("Did not report",
                                                       "Often Not Enough",
                                                       "Sometimes Not Enough",
@@ -68,21 +69,32 @@ ui <- fluidPage(theme = "food.css",
 
                            tabPanel(h5("Home"),
 
-                                    titlePanel(h2(strong("Food Security in the face of COVID-19"), align = "center")),
+
+
+                                    titlePanel(
+                                      h2(strong("Food Security in the face of COVID-19"), align = "center")),
+                                    div(img(src = "covid_molecule.png"), style="text-align: center;"),
+
 
                                      mainPanel(
+
                                       tabsetPanel(
                                         tabPanel(h4(strong("Purpose")),
 
                                                  br(),
 
+                                                 p(("We aim to help inform everyone on what age groups (in the U.S.) and income ranges (in California) have been affected most by food insecurity during COVID-19, what levels of anxiety were felt during the time, and how peoples’ reasons for not working during the time impacted their food insecurity. This could help people understand more about the drivers of food insecurity (especially during a pandemic) and about sentiments surrounding COVID-19, so that we are better prepared to address food insecurity during unexpected crises.")),
+
+                                                 br(),
+
                                                  p(strong("We hope to shed light on the feelings, circumstances, demographics, and food security of people in the United States during COVID-19 through visualizing:")),
-                                                 p("- the change in having enough to eat (desired + less desired foods) in the continental U.S. based on age range"),
+                                                 p("- the change in having enough to eat (desired + less desired foods) in the contiguous U.S. based on age range"),
                                                  p("- the change in having enough to eat (desired + less desired foods) in California based on income levels"),
-                                                 p("- anxiety levels by continental U.S. state for different weeks during the survey period"),
-                                                 p("- the change in food security responses due to the reason for not working in the entire continental U.S. over the full survey period"),
-                                                 p("- the change in food security responses due to the reason for not working in the entire continental U.S. by week, with only select reasons included and a stacked bar graph format for side-by-side comparison between reasons")
-                                                 ), # end tabPanel
+                                                 p("- anxiety levels by contiguous U.S. state for different weeks during the survey period"),
+                                                 p("- the change in food security responses due to the reason for not working in the entire contiguous U.S. over the full survey period"),
+                                                 p("- the change in food security responses due to the reason for not working in the entire contiguous U.S. by week, with only select reasons included and a stacked bar graph format for side-by-side comparison between reasons"),
+
+                                        ), # end tabPanel
 
                                         tabPanel(h4(strong("Data")),
 
@@ -96,15 +108,12 @@ ui <- fluidPage(theme = "food.css",
                                                  a(href="https://www.census.gov/programs-surveys/household-pulse-survey/data.html",
                                                    "US Census Bureau's Pulse Survey website."),
 
-
-
-
                                                  # shapefile source
                                                  em(h2(strong("United States Map Shapefile:"))),
                                                  (em("Data is provided by the")),
                                                  a(href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html",
                                                    "US Census Bureau."),
-                                                 em("We selected the US state boundaries from 2018 at the 5m resolution level. States included in the shapefile data were used to filter for only states in the continental U.S. from the US Census Bureau Pulse Survey to ensure consistency throughout all widgets.")
+                                                 em("We selected the US state boundaries from 2018 at the 5m resolution level. States included in the shapefile data were used to filter for only states in the contiguous U.S. from the US Census Bureau Pulse Survey to ensure consistency throughout all widgets.")
 
                                                  ), # end tab panel
 
@@ -115,7 +124,6 @@ ui <- fluidPage(theme = "food.css",
                                                  p(strong("Adressing bias and transparency:")),
                                                  p("We hope that our FAQ and explanations throughout our tabs inform on the process we took to prepare the data for display and make clear the information we are actually displaying. We recognize that some of the data collection situations (like how options for reasons for not working change multiple times throughout the survey period) are not ideal, but, through our explanations and wrangling, we hope to have optimized what information you can glean from the data. If you have any further questions about our process, please do not hesitate to reach out."),
                                         ) # end tabPanel
-
 
                                       ) # end tabset panel
 
@@ -169,8 +177,8 @@ ui <- fluidPage(theme = "food.css",
                                                                                "$100,000 - $149,999",
                                                                                "$150,000 - $199,999",
                                                                                "$200,000 and above")
-
                                                    ) # end radioButtons
+
                                       ), # end sidebarPanel
 
                                       mainPanel(
@@ -193,7 +201,6 @@ ui <- fluidPage(theme = "food.css",
 
                                     sidebarLayout(
                                       sidebarPanel(
-
                                                    checkboxGroupInput(inputId = "pick_anxiety",
                                                                       label = h3(strong("Anxiety frequency:")),
                                                                       choices = list("Not at all",
@@ -203,11 +210,12 @@ ui <- fluidPage(theme = "food.css",
                                                                                      "Did not report"),
                                                                       select = "Not at all"
                                                    ), # end checkboxGroupInput
+
                                                    sliderInput(inputId = "pick_week",
                                                                label = h3(strong("Weeks:")),
                                                                min = 1,
                                                                max = 36,
-                                                               value = c(1, 10)
+                                                               value = c(1, 36)
                                                                 ) #end sliderInput
                                       ), # end sidebarPanel
 
@@ -215,7 +223,7 @@ ui <- fluidPage(theme = "food.css",
                                         withSpinner(plotOutput("map_plot"),
                                                             color = getOption("spinner.color", default = "#FFAA33"),
                                                             type = getOption("spinner.type", default = 4)),
-                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the FAQ” tab to see what dates are associated with each week number.")
+                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the 'FAQ' tab to see what dates are associated with each week number.")
 
                                       ) # end mainPanel
 
@@ -231,7 +239,7 @@ ui <- fluidPage(theme = "food.css",
                                        tabsetPanel(
                                          tabPanel(h3(("Entire survey period")),
                                                   sidebarLayout(
-                                                    sidebarPanel("Select a reason for not working survey response from the dropdown on the left to see how many people indicated different levels of food security for the selected reason for not working over the entire survey period for the U.S.",
+                                                    sidebarPanel("Select a reason for not working survey response from the dropdown on the left to see how many people indicated different levels of food security for the selected reason for not working over the entire survey period for the contiguous U.S.",
                                                                  selectInput(inputId = "pick_reason",
                                                                              label = h3(strong("Reason for not working:")),
                                                                              choices = list("Did not want to be employed",
@@ -252,6 +260,7 @@ ui <- fluidPage(theme = "food.css",
                                                                                             "I was laid off or furloughed due to coronavirus pandemic",
                                                                                             "I did not have tranportation to work")
                                                                  ) # end checkboxGroupInput
+
                                                     ), # end sidebarPanel
 
                                                     mainPanel(
@@ -262,6 +271,7 @@ ui <- fluidPage(theme = "food.css",
                                                     ) # end mainPanel thing 5
 
                                                   ) # end sidebarLayout
+
                                          ), # end first work tab
 
 
@@ -289,6 +299,7 @@ ui <- fluidPage(theme = "food.css",
                                                     ) # end mainPanel thing 6
 
                                                   ) # end sidebarLayout
+
                                          ) # end tab panel
 
                                        ) # end tabset panel
@@ -296,7 +307,6 @@ ui <- fluidPage(theme = "food.css",
                                      ) # end mainpanel
 
                            ), # end tabPanel thing 5
-
 
                           ### ADDITIONAL INFO tab----------------------
 
@@ -307,14 +317,26 @@ ui <- fluidPage(theme = "food.css",
                                    mainPanel(
 
                                      # start FAQs
-                                     em(h4(strong("Which US states are included in these outputs?"))),
+                                     em(h4(strong("How are you defining food security here?"))),
+
                                      br(),
-                                     p("For any tab that indicates data for the continental U.S. was used, we took information (ie. survey responses) broken down by state (excluding Alaska and Hawaii) and combined them (such as by summing) to get, for example, total survey responses in the U.S. We did not use the information already included in the dataset for the entire U.S. in order to keep the data used throughout the tabs consistent, as we wanted to use only the continental U.S. for our map output."),
+
+                                     p("For our purposes, we are saying that someone has food security if they answered “Enough of the kinds of food wanted” or if they answered “Enough food but not always the kinds wanted” as their survey response. Therefore, in our Age and Income tabs, indicating enough food is represented by the sum of these responses."),
+
+                                     br(),
+
+                                     em(h4(strong("Which US states are included in these outputs?"))),
+
+                                     br(),
+
+                                     p("For any tab that indicates data for the contiguous U.S. was used, we took information (ie. survey responses) broken down by state (excluding Alaska and Hawaii) and combined them (such as by summing) to get, for example, total survey responses in the U.S. We did not use the information already included in the dataset for the entire U.S. in order to keep the data used throughout the tabs consistent, as we wanted to use only the contiguous U.S. for our map output."),
 
                                      br(),
 
                                      em(h4(strong("What does a “week” represent in this survey?"))),
+
                                      br(),
+
                                      p("Weeks varied in length throughout the survey period, as well as excluded some dates. Below you can see exactly which dates correspond with each week number:"),
 
                                        p("[Week 1] April 23 - May 5 2020"),
@@ -423,7 +445,7 @@ ui <- fluidPage(theme = "food.css",
 
                                      br(),
 
-                                     em(h4(strong("Our new set of unique reasons (after our changes) and the weeks now associated with them are summarized below for clarity (reasons still without full 36 week data have asterisks):"))),
+                                     (h4(strong("Our new set of unique reasons (after our changes) and the weeks now associated with them are summarized below for clarity (reasons still without full 36 week data have asterisks):"))),
 
                                      br(),
 
@@ -440,24 +462,18 @@ ui <- fluidPage(theme = "food.css",
                                      p("[11] Employment went out of business due to the coronavirus pandemic: Weeks 1-36"),
                                      p("[12] Other reason: Weeks 1-36"),
                                      p("[13] Did not report: Weeks 1-36 "),
-                                     p("[14] I was concerned about getting or spreading the coronavirus: Weeks 27-36"),
-                                     p("[15] I was caring for someone or sick myself with coronavirus symptoms: Weeks 27-36"),
-                                     p("[16] I was laid off or furloughed due to coronavirus pandemic: Weeks 27-36"),
-                                     p("[17] I did not have tranportation to work: Weeks 27-36"),
+                                     p("[14] I was concerned about getting or spreading the coronavirus: Weeks 27-36*"),
+                                     p("[15] I was caring for someone or sick myself with coronavirus symptoms: Weeks 27-36*"),
+                                     p("[16] I was laid off or furloughed due to coronavirus pandemic: Weeks 27-36*"),
+                                     p("[17] I did not have tranportation to work: Weeks 27-36*"),
 
                                      br(),
-                                     em(h4(strong("How are you defining food security here?"))),
-
-                                     br(),
-
-                                     p("For our purposes, we are saying that someone has food security if they answered “Enough of the kinds of food wanted” or if they answered “Enough food but not always the kinds wanted” as their survey response. Therefore, in our Age and Income tabs, indicating enough food is represented by the sum of these responses."),
 
                                      br()
 
                                    ) # end mainPanel
 
                           ), #end tab 7
-                #), # end tabPanel thing 7
 
   ### ABOUT US tab----------------------
 
@@ -487,7 +503,6 @@ ui <- fluidPage(theme = "food.css",
 
                 ) # end navbarPage
 
-
 ) # end ui
 
 ### SERVER ----------------------
@@ -496,29 +511,24 @@ server <- function(input, output) {
 
   ### age reactive ----------------------
 
-  # NEW imported age df
   widget1 <- reactive({
     age_widget_df %>%
       filter(age %in% input$pick_age)
   }) # end age_reactive
-
 
     output$age_plot <- renderPlot(
       ggplot(data = widget1(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
         geom_line(color = "orange",
                   size = 1.5) +
         theme_minimal() +
-        labs(y = "% of People Indicating Enough Food", #label y
+        labs(y = "% of People Indicating Enough Food",
              x = "Week Number") +
-        #ylim(.5, 1) +
         scale_y_continuous(labels = scales::percent, limits = c(.5, 1)) +
         theme(text = element_text(family = "Courier",
                                   size = 15,
                                   face = "bold"),
               axis.text = element_text(size = 12))
       ) # end output$age_plot
-    #WIDGET 1 END
-
 
     ### income reactive ----------------------
 
@@ -526,7 +536,6 @@ server <- function(input, output) {
       income_widget_df %>%
         filter(income %in% input$pick_income)
     }) # end income_reactive
-
 
     output$income_plot <- renderPlot(
       ggplot(data = widget2(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
@@ -542,8 +551,6 @@ server <- function(input, output) {
               axis.text = element_text(size = 12))
 
     ) # end output$income_plot
-    #WIDGET 2 END
-
 
     ### map reactive ----------------------
 
@@ -574,12 +581,11 @@ server <- function(input, output) {
 
 
     ### work reactive ----------------------
-    #WIDGET 4 START
 
     widget4 <- reactive({
       work_widget_df %>%
         filter(reason_not_working %in% input$pick_reason)
-    }) # end income_reactive
+    }) # end work_reactive
 
     output$work_plot <- renderPlot(
       ggplot(data=widget4(), aes(x=factor(food_security_level, level = c("Did not report",
@@ -601,10 +607,6 @@ server <- function(input, output) {
 
     ) # end output$work_plot
 
-
-    #WIDGET 4 END
-
-
     ### work stack reactive ----------------------
     widget5 <- reactive({
 
@@ -619,7 +621,7 @@ server <- function(input, output) {
           filter(week %in% pick_week)
       }
 
-    }) # end food_reactive
+    }) # end work_stack_reactive
 
     output$workstack_plot <- renderPlot(
       ggplot(data=widget5(), aes(fill=response, y=values, x=reason)) +
@@ -651,8 +653,7 @@ server <- function(input, output) {
               legend.text = element_text(size = 10),
               legend.position = "bottom")
 
-    ) # end output$work_plot
-    #WIDGET 5 END
+    ) # end output$work_stack_plot
 
 }
 

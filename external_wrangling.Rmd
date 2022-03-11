@@ -15,14 +15,17 @@ library(janitor)
 ```
 
 
-# task 1:
+# Run this to read in COVID data from Kaggle
 ```{r}
 # read in data
 covid_food <- data.table::fread(here("data/covid_food.csv")) %>%
   clean_names()
 ```
 
-#task 2:
+# *Must run this chunk to download map shapefile for anxiety widget!!*
+
+The file is too large to upload to Github.
+
 ```{r}
 us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
   clean_names() %>%
