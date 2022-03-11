@@ -30,10 +30,9 @@ income_widget_df <- read_csv(here("data/income_ratios.csv"))
 # MAP WIDGET DF
 map_widget_df <- read_sf(here("data/map_anxiety.shp"))
 
-# WORK WIDGET DF
+# WORK WIDGET DFs
 work_widget_df <- read_csv(here("data/work_ratios.csv"))
 
-# widget 5
 first <- read_csv(here("data/1_27_widget_5_new.csv"))
 first$response <- factor(first$response, levels = c("Did not report",
                                                     "Often Not Enough",
