@@ -1,0 +1,329 @@
+---
+title: "tiff's playground to tidy shinyapp"
+author: "Tiffany Hsu"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(bslib)
+library(here)
+library(sf)
+library(janitor)
+```
+
+
+# task 1:
+```{r}
+# read in data
+covid_food <- data.table::fread(here("data/covid_food.csv")) %>%
+  clean_names()
+```
+
+#task 2:
+```{r}
+us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
+  clean_names() %>%
+  rename(location = stusps) %>%
+  filter(location != "VI",
+         location != "GU",
+         location != "MP",
+         location != "AS",
+         location != "PR",
+         location != "HI",
+         location != "AK",
+         location != "DC") %>%
+  select(location, geometry) #%>% 
+
+####
+
+us_states_no_geom <- us_states_map %>%
+   select(-geometry)
+
+covid_food_merged_no_geom <- merge(covid_food, us_states_no_geom, by = "location")
+
+#to avoid doubling US counts, delete the rows including US location
+us_absent_no_geom <- covid_food_merged_no_geom %>%
+  filter(location != "US")
+
+
+us_absent <- covid_food %>%
+  filter(location != "US")
+
+# # for widget 3
+plot_data <- us_absent %>%
+  group_by(week, location, freq_feel_anxious) %>%
+  drop_na(freq_feel_anxious) %>%
+  mutate(totals = enough_of_the_kinds_of_food_wanted +
+           enough_food_but_not_always_the_kinds_wanted +
+           sometimes_not_enough_to_eat +
+           often_not_enough_to_eat +
+           did_not_report) %>%
+  select(totals,
+         freq_feel_anxious,
+         location,
+         week) %>%
+  summarize(sum(totals)) %>%
+  rename(responses = 'sum(totals)') %>%
+  mutate(response_pct = responses / sum(responses) * 100)
+  # filter(freq_feel_anxious == 'Not at all', week %in% 1:36)
+
+ covid_food_merged <- merge(plot_data, us_states_map, by = 'location') %>% 
+  write_sf("data/map_anxiety.shp")
+
+ map_widget_df <- read_sf(here("data/map_anxiety.shp")) 
+ 
+#     write_sf("data/covid_food_plot.shp")
+
+  
+
+```
+
+## WIDGET 1 : AGE (DONE)
+```{r}
+# step 1: only filter for only age ranges
+age_df <- us_absent_no_geom %>% 
+  select(enough_of_the_kinds_of_food_wanted,
+         enough_food_but_not_always_the_kinds_wanted,
+         sometimes_not_enough_to_eat,
+         often_not_enough_to_eat,
+         did_not_report,
+         age,
+         week)
+
+##KEEP - convert week to numeric type
+for (i in 1:length(age_df$week)) {
+age_df$week[[i]] <- str_replace(age_df$week[[i]], "week", "")
+}
+
+age_df$week <- sapply(age_df$week, as.numeric) 
+## end KEEP
+
+age_by_week <- age_df %>% 
+  group_by(age, week) %>%
+  summarize(enough_of_the_kinds_of_food_wanted_ratio =
+            (sum(enough_of_the_kinds_of_food_wanted) +
+            sum(enough_food_but_not_always_the_kinds_wanted)) /
+            (sum(enough_of_the_kinds_of_food_wanted) +
+            sum(enough_food_but_not_always_the_kinds_wanted) +
+            sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) +
+            sum(did_not_report))) %>% 
+  na.omit() 
+
+#export finalized df for age widget to csv
+# write_csv(x = age_by_week, "data/age_ratios_delete.csv")
+
+```
+
+## WIDGET 2: INCOME (DONE)
+```{r}
+# step 1: only filter for only age ranges
+income_df <- us_absent_no_geom %>% 
+  select(enough_of_the_kinds_of_food_wanted,
+         enough_food_but_not_always_the_kinds_wanted,
+         sometimes_not_enough_to_eat,
+         often_not_enough_to_eat,
+         did_not_report,
+         income,
+         week,
+         location) %>% 
+  filter(location  == "CA")
+
+##KEEP - convert week to numeric type
+for (i in 1:length(income_df$week)) {
+income_df$week[[i]] <- str_replace(income_df$week[[i]], "week", "")
+}
+
+income_df$week <- sapply(income_df$week, as.numeric) 
+## end KEEP
+
+income_by_week <- income_df %>% 
+  group_by(income, week) %>%
+  summarize(enough_of_the_kinds_of_food_wanted_ratio =
+            (sum(enough_of_the_kinds_of_food_wanted) +
+            sum(enough_food_but_not_always_the_kinds_wanted)) /
+            (sum(enough_of_the_kinds_of_food_wanted) +
+            sum(enough_food_but_not_always_the_kinds_wanted) +
+            sum(sometimes_not_enough_to_eat) + sum(often_not_enough_to_eat) +
+            sum(did_not_report))) %>% 
+  na.omit() 
+
+#export finalized df for age widget to csv
+#write_csv(x = income_by_week, "data/income_ratios.csv")
+
+```
+
+
+## WIDGET 3
+
+```{r}
+map_df <- covid_food_merged 
+
+
+map_by_anxiety <- covid_food_merged %>% 
+  group_by(location, freq_feel_anxious, week) %>%
+  mutate(mean_pct = mean(response_pct)) %>%
+  select(location, mean_pct, freq_feel_anxious, geometry) %>%
+  distinct() %>%
+  group_by(location) %>%
+  mutate(sum_anx = sum(mean_pct))%>%
+  write_sf("data/map_anxiety.shp")
+
+ map_widget_df <- read_sf(here("data/map_anxiety.shp")) 
+
+
+#export finalized df for age widget to csv
+#write_sf(x = map_by_anxiety, "data/map_anxiety.")
+
+```
+
+
+## MODEL WIDGET 4
+```{r}
+work_model_df <- us_absent_no_geom %>%
+  select(enough_of_the_kinds_of_food_wanted,
+         enough_food_but_not_always_the_kinds_wanted,
+         sometimes_not_enough_to_eat,
+         often_not_enough_to_eat,
+         did_not_report,
+         reason_not_working,
+         week,
+         location) %>% 
+  # group_by(reason_not_working) %>%
+  filter(reason_not_working == "Did not want to be employed") %>%
+        # filter(reason_not_working %in% input$pick_reason) %>%
+        mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_2 = sum(enough_food_but_not_always_the_kinds_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_3 = sum(sometimes_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_4 = sum(often_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               sum_5 = sum(did_not_report)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report))) %>%
+  # pivot_longer(reason_not_working, names_to = "idkyet")
+        select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
+        head(1) %>%
+        t() %>%
+        as.data.frame() %>%
+        rename(values = "V1")%>%
+        add_column(name = c("Enough - Wanted",
+                            "Enough - Not Always Wanted",
+                            "Sometimes Not Enough",
+                            "Often Not Enough",
+                            "Did not report"))
+
+```
+
+
+## WIDGET 4
+```{r}
+work_df <- us_absent_no_geom %>%
+  select(enough_of_the_kinds_of_food_wanted,
+         enough_food_but_not_always_the_kinds_wanted,
+         sometimes_not_enough_to_eat,
+         often_not_enough_to_eat,
+         did_not_report,
+         reason_not_working,
+         week,
+         location) %>% 
+  group_by(reason_not_working) %>%
+  # filter(reason_not_working == "Did not want to be employed") %>% 
+        # filter(reason_not_working %in% input$pick_reason) %>%
+        summarize("Enough - Wanted" = sum(enough_of_the_kinds_of_food_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               "Enough - Not Always Wanted" = sum(enough_food_but_not_always_the_kinds_wanted)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               "Sometimes Not Enough" = sum(sometimes_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               "Often Not Enough" = sum(often_not_enough_to_eat)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report)),
+               "Did not report" = sum(did_not_report)/
+                 (sum(enough_of_the_kinds_of_food_wanted) +
+                    sum(enough_food_but_not_always_the_kinds_wanted) +
+                    sum(sometimes_not_enough_to_eat) +
+                    sum(often_not_enough_to_eat) +
+                    sum(did_not_report))) %>%
+  pivot_longer(!reason_not_working, names_to = "food_security_level", values_to = "value") 
+
+  write_csv(x = work_df, "data/work_ratios.csv")
+
+
+
+  # select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
+  # head(1) %>%
+  # t() %>%
+  # as.data.frame() %>%
+  # rename(values = "V1")%>%
+  # add_column(name = c("Enough - Wanted",
+  #                     "Enough - Not Always Wanted",
+  #                     "Sometimes Not Enough",
+  #                     "Often Not Enough",
+  #                     "Did not report"))
+
+work_ex <- work_df %>%
+  filter(reason_not_working == "Did not want to be employed")
+
+ggplot(data=work_ex, aes(x=factor(food_security_level, level = c("Did not report",
+                                                  "Enough - Wanted",
+                                                  "Enough - Not Always Wanted",
+                                                  "Sometimes Not Enough",
+                                                  "Often Not Enough")),
+                         y=value)) +
+        geom_bar(fill = "orange", stat = "identity") +
+        coord_flip() +
+        theme_minimal() +
+        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+        labs(x = "Survey Response",
+             y = "% of People Selected") +
+        theme(text = element_text(family = "Courier",
+                                  size = 15,
+                                  face = "bold"),
+              axis.text = element_text(size = 12))
+
+
+
+```
+
+
+
+
