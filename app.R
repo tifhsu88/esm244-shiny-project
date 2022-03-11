@@ -12,67 +12,23 @@ library(shinyWidgets) # background gradient
 covid_food <- data.table::fread(here("data/covid_food.csv")) %>%
   clean_names()
 
-# contains geometry of us states
-#us_states <- read_csv(here("data/us_states.csv")) # erika created this but it loses sf features
+#AGE WIDGET DF
 
-us_states_map <- read_sf(here("data", "us_states", "cb_2018_us_state_5m.shp")) %>%
-  clean_names() %>%
-  rename(location = stusps) %>%
-  filter(location != "VI",
-         location != "GU",
-         location != "MP",
-         location != "AS",
-         location != "PR",
-         location != "HI",
-         location != "AK",
-         location != "DC") %>%
-  #location %in% c("CA","OR","AZ","WA","NV","WY","UT","ID","CO","NM")) %>%
-  select(location, geometry)
+age_widget_df <- read_csv(here("data/age_ratios.csv"))
 
-us_states_map <- read_sf(here("data", "us_states_map.shp"))
+#INCOME WIDGET DF
+
+income_widget_df <- read_csv(here("data/income_ratios.csv"))
 
 
-us_states_no_geom <- us_states_map %>%
-   select(-geometry)
+#MAP WIDGET DF
 
-covid_food_merged_no_geom <- merge(covid_food, us_states_no_geom, by = "location")
-
-#to avoid doubling US counts, delete the rows including US location
-us_absent_no_geom <- covid_food_merged_no_geom %>%
-  filter(location != "US")
+map_widget_df <- read_sf(here("data/map_anxiety.shp"))
 
 
-us_absent <- covid_food %>%
-  filter(location != "US")
+#WORK WIDGET DF
 
-# # for widget 3
-plot_data <- us_absent %>%
-  group_by(week, location, freq_feel_anxious) %>%
-  drop_na(freq_feel_anxious) %>%
-  mutate(totals = enough_of_the_kinds_of_food_wanted +
-           enough_food_but_not_always_the_kinds_wanted +
-           sometimes_not_enough_to_eat +
-           often_not_enough_to_eat +
-           did_not_report) %>%
-  select(#enough_of_the_kinds_of_food_wanted,
-    #enough_food_but_not_always_the_kinds_wanted,
-    #sometimes_not_enough_to_eat,
-    #often_not_enough_to_eat,
-    #did_not_report,
-    totals,
-    freq_feel_anxious,
-    location,
-    week) %>%
-  summarize(sum(totals)) %>%
-  rename(responses = 'sum(totals)') %>%
-  mutate(response_pct = responses / sum(responses) * 100)
-  # filter(freq_feel_anxious == 'Not at all', week %in% 1:36)
-
-covid_food_merged <- merge(plot_data, us_states_map, by = 'location')
-
-# read in file for map plot (doesn't work)
-#covid_food_merged <- read_sf(here("data", "covid_food_plot.shp"))
-
+work_widget_df <- read_csv(here("data/work_ratios.csv"))
 
 #widget 5
 first <- read_csv(here("data/1_27_widget_5_new.csv"))
@@ -92,14 +48,6 @@ second$response <- factor(second$response, levels = c("Did not report",
                                                       "Enough - Wanted"))
 
 ### THEME ELEMENTS ----------------------
-
-# my_theme <- bs_theme(
-#   bg = "ivory",
-#   fg = "green",
-#   primary = "blue",
-#   heading_font = font_google("Courier Prime"),
-#   base_font = font_google("Jost")
-# )
 
 thematic::thematic_shiny() # adapts ggplot to shiny theme
 
@@ -129,21 +77,27 @@ ui <- fluidPage(theme = "food.css",
                                                  br(),
 
                                                  p(strong("We hope to shed light on the feelings, circumstances, demographics, and food security of people in the United States during COVID-19 through visualizing:")),
-                                                 p("- the change in having enough to eat (desired + less desired foods) in the U.S. based on age range"),
+                                                 p("- the change in having enough to eat (desired + less desired foods) in the continental U.S. based on age range"),
                                                  p("- the change in having enough to eat (desired + less desired foods) in California based on income levels"),
-                                                 p("- anxiety levels by U.S. state for different weeks during the survey period"),
-                                                 p("- the change in food security responses due to the reason for not working in the entire U.S. over the full survey period"),
-                                                 p("- the change in food security responses due to the reason for not working in the entire U.S. by week, with only select reasons included and a stacked bar graph format for side-by-side comparison between reasons")
+                                                 p("- anxiety levels by continental U.S. state for different weeks during the survey period"),
+                                                 p("- the change in food security responses due to the reason for not working in the entire continental U.S. over the full survey period"),
+                                                 p("- the change in food security responses due to the reason for not working in the entire continental U.S. by week, with only select reasons included and a stacked bar graph format for side-by-side comparison between reasons")
                                                  ), # end tabPanel
 
                                         tabPanel(h4(strong("Data")),
 
                                                  #covid food data source
                                                  em(h2(strong("COVID-19 Food Security Data:"))),
-                                                 (em("Data is provided by the")),
+                                                 (em("The dataset cleaned by Jack Ogozaly was downloaded from")),
                                                  a(href="https://www.kaggle.com/jackogozaly/pulse-survey-food-insecurity-data",
-                                                   "US Census Bureau Pulse Survey"),
+                                                   "Kaggle"),
                                                    em("and measures the impact of the coronavirus on food insecurity across the US. Attributes relate to: food survey responses, age, income level, mental health, education, etc. The survey dates span from April 2020 through August 2021."),
+                                                 em("The original form of this data can be found at the"),
+                                                 a(href="https://www.census.gov/programs-surveys/household-pulse-survey/data.html",
+                                                   "US Census Bureau's Pulse Survey website."),
+
+
+
 
                                                  # shapefile source
                                                  em(h2(strong("United States Map Shapefile:"))),
@@ -174,9 +128,9 @@ ui <- fluidPage(theme = "food.css",
                            tabPanel(h5("Age"),
                                     h2(strong("Age vs. Food Security"), align = "center"),
                                     sidebarLayout(
-                                      sidebarPanel("Select an age range on the left to see how many people indicated enough food (sum of the responses “enough of the kinds of food wanted” and “enough food but not always the kinds wanted”) in that age range for the entire U.S. during each week of the survey period.",
+                                      sidebarPanel("Select an age range on the left to see how many people indicated enough food (sum of the responses “enough_of_the_kinds_of_food_wanted” and “enough_food_but_not_always_the_kinds_wanted”) in that age range for the entire U.S. during each week of the survey period.",
                                                    radioButtons(inputId = "pick_age",
-                                                                label = h3("Age range:"),
+                                                                label = h3(strong("Age range:")),
 
                                                                 #when using manual choices, plot will not show up
                                                                 choices = list("18 - 24",
@@ -189,9 +143,11 @@ ui <- fluidPage(theme = "food.css",
                                       ), # end sidebarPanel
 
                                       mainPanel(
-                                                plotOutput("age_plot"),
-                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number.")
-                                      )
+                                        withSpinner(plotOutput("age_plot"),
+                                                    color = getOption("spinner.color", default = "#FFAA33"),
+                                                    type = getOption("spinner.type", default = 4)),
+                                        em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number. We have adjusted the y-axis to remain a fixed range for easier comparison when switching between the age ranges.")
+                                      ) #end mainPanel
 
                                     ) # end sidebarLayout
 
@@ -202,8 +158,9 @@ ui <- fluidPage(theme = "food.css",
                            tabPanel(h5("Income"),
                                     h2(strong("Income vs. Food Security"), align = "center"),
                                     sidebarLayout(
-                                      sidebarPanel("Select an income range on the left to see how many people indicated enough food (sum of the responses “enough of the kinds of food wanted” and “enough food but not always the kinds wanted”) in that age range for the entire U.S. during each week of the survey period.",
-                                                   radioButtons(inputId = "pick_income", label = h3("Income level:"),
+                                      sidebarPanel("Select an income range on the left to see how many people indicated enough food (sum of the responses “enough_of_the_kinds_of_food_wanted” and “enough_food_but_not_always_the_kinds_wanted”) in that income range for California during each week of the survey period.",
+                                                   radioButtons(inputId = "pick_income",
+                                                                label = h3(strong("Income level:")),
                                                                 choices = list("Less than $25,000",
                                                                                "$25,000 - $34,999",
                                                                                "$35,000 - $49,999",
@@ -211,15 +168,18 @@ ui <- fluidPage(theme = "food.css",
                                                                                "$75,000 - $99,999",
                                                                                "$100,000 - $149,999",
                                                                                "$150,000 - $199,999",
-                                                                               "$200,000 and above",
-                                                                               "Did not report")
+                                                                               "$200,000 and above")
 
                                                    ) # end radioButtons
                                       ), # end sidebarPanel
 
-                                      mainPanel(plotOutput("income_plot"),
-                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number.")
-                                      )
+                                      mainPanel(
+                                        withSpinner(plotOutput("income_plot"),
+                                                  color = getOption("spinner.color", default = "#FFAA33"),
+                                                  type = getOption("spinner.type", default = 4)),
+
+                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number. We have adjusted the y-axis to remain a fixed range for easier comparison when switching between the income ranges.")
+                                      ) #end mainPanel
 
                                     ) # end sidebarLayout
 
@@ -228,32 +188,36 @@ ui <- fluidPage(theme = "food.css",
   ### ANXIETY tab----------------------
 
                          tabPanel(h5("Anxiety"),
-                                    h2(strong("Cumulative sum of the mean percentage of survey responses over the course of the selected week(s) that were of the selected anxiety frequency (or frequencies)")),
+                                    h3(strong("Average percentage of survey responses over the course of the selected week(s) that were of the selected anxiety frequency (or frequencies)")),
                                     "Select as many anxiety frequency level survey responses on the left to visualize them on a map of the U.S. You can also use the slider bar to select a week range (default is showing over the entire survey period: Week 1-36). Selecting one anxiety frequency level will visualize the mean number of responses from people in each state over the entirety of the selected weeks. Selecting more than one anxiety frequency will display the sum of the means of the two or more selected (ie. if every checkbox is filled, every state will display 100%, as 100% of survey responses for that week range would be accounted for). This map includes only the contiguous United States. Pay close attention to the legend bar for the gradient on the right side of the map every time you change your selection: a drastic color change may be indicating a relatively small percentage difference.",
 
                                     sidebarLayout(
                                       sidebarPanel(
 
                                                    checkboxGroupInput(inputId = "pick_anxiety",
-                                                                      label = h3("Anxiety frequency:"),
+                                                                      label = h3(strong("Anxiety frequency:")),
                                                                       choices = list("Not at all",
                                                                                      "Several days",
                                                                                      "More than half the days",
                                                                                      "Nearly every day",
-                                                                                     "Did not report")
+                                                                                     "Did not report"),
+                                                                      select = "Not at all"
                                                    ), # end checkboxGroupInput
                                                    sliderInput(inputId = "pick_week",
-                                                               label = h3("Weeks:"),
+                                                               label = h3(strong("Weeks:")),
                                                                min = 1,
                                                                max = 36,
                                                                value = c(1, 10)
                                                                 ) #end sliderInput
                                       ), # end sidebarPanel
 
-                                      mainPanel(plotOutput("map_plot"),
-                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number.")
+                                      mainPanel(
+                                        withSpinner(plotOutput("map_plot"),
+                                                            color = getOption("spinner.color", default = "#FFAA33"),
+                                                            type = getOption("spinner.type", default = 4)),
+                                                em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the FAQ” tab to see what dates are associated with each week number.")
 
-                                      )
+                                      ) # end mainPanel
 
                                     ) # end sidebarLayout
 
@@ -265,10 +229,11 @@ ui <- fluidPage(theme = "food.css",
                                      h2(strong("Reason for not working vs. Food Security"), align = "center"),
                                      mainPanel(
                                        tabsetPanel(
-                                         tabPanel(h4("Work"),
+                                         tabPanel(h3(("Entire survey period")),
                                                   sidebarLayout(
                                                     sidebarPanel("Select a reason for not working survey response from the dropdown on the left to see how many people indicated different levels of food security for the selected reason for not working over the entire survey period for the U.S.",
-                                                                 selectInput(inputId = "pick_reason", label = h3("Reason for not working:"),
+                                                                 selectInput(inputId = "pick_reason",
+                                                                             label = h3(strong("Reason for not working:")),
                                                                              choices = list("Did not want to be employed",
                                                                                             "Sick with coronavirus symptoms",
                                                                                             "Caring for someone with coronavirus symptoms",
@@ -289,29 +254,34 @@ ui <- fluidPage(theme = "food.css",
                                                                  ) # end checkboxGroupInput
                                                     ), # end sidebarPanel
 
-                                                    mainPanel(plotOutput("work_plot"),
-                                                              em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number.")
+                                                    mainPanel(
+                                                      withSpinner(plotOutput("work_plot"),
+                                                                color = getOption("spinner.color", default = "#FFAA33"),
+                                                                type = getOption("spinner.type", default = 4)),
+                                                              em("If you would like to see the exact changes made to each reason and what weeks each reason represents, please view the “FAQ” tab. Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number.")
                                                     ) # end mainPanel thing 5
 
-                                                  ), # end sidebarLayout
+                                                  ) # end sidebarLayout
                                          ), # end first work tab
 
 
-                                         tabPanel(h4("Work by week"),
+                                         tabPanel(h3(("By week")),
                                                   sidebarLayout(
-                                                    sidebarPanel("Select a week from the dropdown on the left to see how survey responses were distributed for reasons for not working: 'Did not want to be employed', 'Sick with coronavirus symptoms',  'Caring for someone with coronavirus symptoms', 'Caring for children not in school or daycare', and 'Sick (not coronavirus related) or disabled' through week 27 and then 'Did not want to be employed', 'I was caring for someone or sick myself with coronavirus symptoms', 'Caring for children not in school or daycare', and 'Sick (not coronavirus related) or disabled' for week 28 onwards (when 'Sick with coronavirus symptoms' and 'Caring for someone with coronavirus symptoms' were combined into one collective reason)",
-                                                                 selectInput(inputId = "pick_reasonstack", label = h3("Week:"),
+                                                    sidebarPanel("Select a week from the dropdown on the left to see how survey responses were distributed for reasons for not working:",
+                                                                 selectInput(inputId = "pick_reasonstack",
+                                                                             label = h3(strong("Week:")),
                                                                              choices = 1:36)
-                                                                 # choices = unique(us_absent_no_geom$reason_not_working) #idk how to remove NA
-                                                                 # selected = 1
-                                                                 # end checkboxGroupInput
                                                     ), # end sidebarPanel
 
                                                     mainPanel(
-                                                              plotOutput("workstack_plot"),
+                                                      withSpinner(plotOutput("workstack_plot"),
+                                                                  color = getOption("spinner.color", default = "#FFAA33"),
+                                                                  type = getOption("spinner.type", default = 4)),
 
                                                               br(),
                                                               br(),
+
+                                                              p("'Did not want to be employed', 'Sick with coronavirus symptoms',  'Caring for someone with coronavirus symptoms', 'Caring for children not in school or daycare', and 'Sick (not coronavirus related) or disabled' through week 27 and then 'Did not want to be employed', 'I was caring for someone or sick myself with coronavirus symptoms', 'Caring for children not in school or daycare', and 'Sick (not coronavirus related) or disabled' for week 28 onwards (when 'Sick with coronavirus symptoms' and 'Caring for someone with coronavirus symptoms' were combined into one collective reason)"),
 
                                                               em("Note: “week” in this survey does not always refer to 7 days; it can be anywhere from a 5 day period to a 12 day period. See the “FAQ” tab to see what dates are associated with each week number. If you would like more information on our wrangling of the changes in options to select for reasons for not working throughout the survey period, please view the “FAQ” tab.")
 
@@ -525,21 +495,13 @@ ui <- fluidPage(theme = "food.css",
 server <- function(input, output) {
 
   ### age reactive ----------------------
+
+  # NEW imported age df
   widget1 <- reactive({
-    us_absent_no_geom %>%
-      filter(age %in% input$pick_age) %>%
-      group_by(week) %>%
-      summarize(enough_of_the_kinds_of_food_wanted_ratio =
-        (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/
-          (sum(enough_of_the_kinds_of_food_wanted) +
-             sum(enough_food_but_not_always_the_kinds_wanted) +
-             sum(sometimes_not_enough_to_eat) +
-             sum(often_not_enough_to_eat) +
-             sum(did_not_report)
-           )
-        ) #%>%
-      #rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
-    }) # end age_reactive
+    age_widget_df %>%
+      filter(age %in% input$pick_age)
+  }) # end age_reactive
+
 
     output$age_plot <- renderPlot(
       ggplot(data = widget1(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
@@ -559,31 +521,20 @@ server <- function(input, output) {
 
 
     ### income reactive ----------------------
+
     widget2 <- reactive({
-      us_absent_no_geom %>%
-        filter(location == "CA") %>%
-        filter(income %in% input$pick_income) %>%
-        group_by(week) %>%
-        summarize(enough_of_the_kinds_of_food_wanted_ratio =
-          (sum(enough_of_the_kinds_of_food_wanted) + sum(enough_food_but_not_always_the_kinds_wanted))/
-            (sum(enough_of_the_kinds_of_food_wanted) +
-               sum(enough_food_but_not_always_the_kinds_wanted) +
-               sum(sometimes_not_enough_to_eat) +
-               sum(often_not_enough_to_eat) +
-               sum(did_not_report)
-            )
-        ) #%>%
-       # rename(enough_of_the_kinds_of_food_wanted_ratio = '`/`(...)')
-    }) # end food_reactive
+      income_widget_df %>%
+        filter(income %in% input$pick_income)
+    }) # end income_reactive
+
 
     output$income_plot <- renderPlot(
       ggplot(data = widget2(), aes(x = week, y = enough_of_the_kinds_of_food_wanted_ratio)) +
         geom_line(color = "orange",
                   size = 1.5) +
         theme_minimal() +
-        labs(y = "% of People Indicating Enough Food", #label y
+        labs(y = "% of People Indicating Enough Food",
              x = "Week Number") +
-      #ylim(0.5, 1)
         scale_y_continuous(labels = scales::percent, limits = c(.5, 1)) +
         theme(text = element_text(family = "Courier",
                                   size = 15,
@@ -595,88 +546,48 @@ server <- function(input, output) {
 
 
     ### map reactive ----------------------
-    #WIDGET 3 START
+
     widget3 <- reactive({
-      covid_food_merged %>%
-        filter(freq_feel_anxious %in% input$pick_anxiety,
+      map_widget_df %>%
+        filter(frq_fl_ %in% input$pick_anxiety,
                week %in% input$pick_week) %>%
-        group_by(location, freq_feel_anxious) %>%
-        mutate(mean_pct = mean(response_pct)) %>%
-        select(location, mean_pct, freq_feel_anxious, geometry) %>%
-        distinct() %>%
-        group_by(location) %>%
-        mutate(sum_anx = sum(mean_pct))
-    }) # end food_reactive
+            group_by(locatin, frq_fl_) %>%
+            mutate(mean_pct = mean(rspns_p)) %>%
+            select(locatin, mean_pct, frq_fl_, geometry) %>%
+            distinct() %>%
+            group_by(locatin) %>%
+            mutate(sum_anx = sum(mean_pct))
+    }) # end map_reactive
 
     output$map_plot <- renderPlot(
       ggplot(data = widget3(), aes(geometry = geometry)) +
         geom_sf(aes(fill = sum_anx), color = "white", size = 0.1) +
         theme_void() +
         scale_fill_gradientn(colors = c("khaki","darkolivegreen2","seagreen")) +
-        labs(fill = "% Survey Response") +
-        theme(legend.title = element_text(size = 20),
+        labs(fill = "% of Survey Responses") +
+        theme(legend.title = element_text(size = 18),
               text = element_text(family = "Courier",
                                   size = 20,
                                   face = "bold"))
-        #labs(title = "Cumulative sum of the mean percentage of survey responses over the course of the selected week(s) that were of the selected anxiety frequency (or frequencies)")
     ) # end output$map_plot
     #WIDGET 3 END
 
 
     ### work reactive ----------------------
     #WIDGET 4 START
+
     widget4 <- reactive({
-      us_absent_no_geom %>%
-        filter(reason_not_working %in% input$pick_reason) %>%
-        mutate(sum_1 = sum(enough_of_the_kinds_of_food_wanted)/
-                 (sum(enough_of_the_kinds_of_food_wanted) +
-                    sum(enough_food_but_not_always_the_kinds_wanted) +
-                    sum(sometimes_not_enough_to_eat) +
-                    sum(often_not_enough_to_eat) +
-                    sum(did_not_report)),
-               sum_2 = sum(enough_food_but_not_always_the_kinds_wanted)/
-                 (sum(enough_of_the_kinds_of_food_wanted) +
-                    sum(enough_food_but_not_always_the_kinds_wanted) +
-                    sum(sometimes_not_enough_to_eat) +
-                    sum(often_not_enough_to_eat) +
-                    sum(did_not_report)),
-               sum_3 = sum(sometimes_not_enough_to_eat)/
-                 (sum(enough_of_the_kinds_of_food_wanted) +
-                    sum(enough_food_but_not_always_the_kinds_wanted) +
-                    sum(sometimes_not_enough_to_eat) +
-                    sum(often_not_enough_to_eat) +
-                    sum(did_not_report)),
-               sum_4 = sum(often_not_enough_to_eat)/
-                 (sum(enough_of_the_kinds_of_food_wanted) +
-                    sum(enough_food_but_not_always_the_kinds_wanted) +
-                    sum(sometimes_not_enough_to_eat) +
-                    sum(often_not_enough_to_eat) +
-                    sum(did_not_report)),
-               sum_5 = sum(did_not_report)/
-                 (sum(enough_of_the_kinds_of_food_wanted) +
-                    sum(enough_food_but_not_always_the_kinds_wanted) +
-                    sum(sometimes_not_enough_to_eat) +
-                    sum(often_not_enough_to_eat) +
-                    sum(did_not_report))) %>%
-        select(sum_1, sum_2, sum_3, sum_4, sum_5) %>%
-        head(1) %>%
-        t() %>%
-        as.data.frame() %>%
-        rename(values = "V1")%>%
-        add_column(name = c("Enough - Wanted",
-                            "Enough - Not Always Wanted",
-                            "Sometimes Not Enough",
-                            "Often Not Enough",
-                            "Did not report"))
-    }) # end food_reactive
+      work_widget_df %>%
+        filter(reason_not_working %in% input$pick_reason)
+    }) # end income_reactive
 
     output$work_plot <- renderPlot(
-      ggplot(data=widget4(), aes(x=factor(name, level = c("Did not report",
-                                                           "Enough - Wanted",
-                                                           "Enough - Not Always Wanted",
-                                                           "Sometimes Not Enough",
-                                                           "Often Not Enough")),
-                                 y=values)) +
+      ggplot(data=widget4(), aes(x=factor(food_security_level, level = c("Did not report",
+                                                          "Enough - Wanted",
+                                                          "Enough - Not Always Wanted",
+                                                          "Sometimes Not Enough",
+                                                          "Often Not Enough")),
+                                 y=value)) +
         geom_bar(fill = "orange", stat = "identity") +
         coord_flip() +
         theme_minimal() +
@@ -689,6 +600,8 @@ server <- function(input, output) {
               axis.text = element_text(size = 12))
 
     ) # end output$work_plot
+
+
     #WIDGET 4 END
 
 
@@ -698,26 +611,12 @@ server <- function(input, output) {
       pick_week <- as.numeric(input$pick_reasonstack)
       if (pick_week < 28) {
         first %>%
-          #pivot_longer(!c(reason, name), names_to="week",values_to="values") %>%
-          filter(week %in% pick_week) #%>%
-        #rename(response = name) #%>%
-        #factor(second$response, levels = c("Did not report",
-        #"Often Not Enough",
-        #"Sometimes Not Enough",
-        #"Enough - Not Always Wanted",
-        #"Enough - Wanted"))
+          filter(week %in% pick_week)
       }
 
       else {
         second %>%
-          #pivot_longer(!c(reason, name), names_to="week",values_to="values") %>%
-          filter(week %in% pick_week) #%>%
-        #rename(response = name) #%>%
-        #factor(first$response, levels = c("Did not report",
-        #"Often Not Enough",
-        #"Sometimes Not Enough",
-        #"Enough - Not Always Wanted",
-        #"Enough - Wanted"))
+          filter(week %in% pick_week)
       }
 
     }) # end food_reactive
@@ -726,24 +625,31 @@ server <- function(input, output) {
       ggplot(data=widget5(), aes(fill=response, y=values, x=reason)) +
         geom_bar(position="stack", stat="identity") +
         theme_minimal() +
-        scale_fill_manual(values = c("snow4", # did not report
+        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+        scale_x_discrete(labels = c("Children",
+                                    "Caring \nfor COVID",
+                                    "COVID \nsymptoms",
+                                    "Unemployed \nby choice",
+                                    "Sick \nnot COVID")) +
+        scale_fill_manual(labels = c("Did not \nreport",
+                                     "Often \nnot \nenough",
+                                     "Sometimes \nnot \nenough",
+                                     "Enough - \nnot always \nwanted",
+                                     "Enough \nwanted"),
+                          values = c("snow4", # did not report
                                      "indianred", #often not enough
                                      "orange", #sometimes not enough
                                      "palegreen3", # enough - not always wanted
                                      "seagreen")) + # enough wanted
-        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-        scale_x_discrete(labels = c("Children",
-                                    "Caring for COVID",
-                                    "COVID symptoms",
-                                    "Did not want to be employed",
-                                    "Sick not COVID")) +
-        labs(fill = "Response",
+        labs(fill = "",
              x = "Reason",
              y = "% of People Selected") +
         theme(text = element_text(family = "Courier",
-                                  size = 20,
+                                  size = 15,
                                   face = "bold"),
-              axis.text = element_text(size = 12))
+              axis.text = element_text(size = 12),
+              legend.text = element_text(size = 10),
+              legend.position = "bottom")
 
     ) # end output$work_plot
     #WIDGET 5 END

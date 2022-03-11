@@ -1,0 +1,91 @@
+reason_not_working,food_security_level,value
+Caring for an elderly person,Enough - Wanted,0.3625548557523962
+Caring for an elderly person,Enough - Not Always Wanted,0.3477918235133243
+Caring for an elderly person,Sometimes Not Enough,0.14398478343954046
+Caring for an elderly person,Often Not Enough,0.03954979714818413
+Caring for an elderly person,Did not report,0.1061187401465549
+Caring for children not in school or daycare,Enough - Wanted,0.3641174304986824
+Caring for children not in school or daycare,Enough - Not Always Wanted,0.3331637412932253
+Caring for children not in school or daycare,Sometimes Not Enough,0.15143886180514485
+Caring for children not in school or daycare,Often Not Enough,0.037127164525076285
+Caring for children not in school or daycare,Did not report,0.11415280187787115
+Caring for someone with coronavirus symptoms,Enough - Wanted,0.24866047786947715
+Caring for someone with coronavirus symptoms,Enough - Not Always Wanted,0.32676112762623677
+Caring for someone with coronavirus symptoms,Sometimes Not Enough,0.2073164844991736
+Caring for someone with coronavirus symptoms,Often Not Enough,0.09983648909843151
+Caring for someone with coronavirus symptoms,Did not report,0.11742542090668098
+Coronavirus pandemic related reduction in business (including furlough),Enough - Wanted,0.3673507265650095
+Coronavirus pandemic related reduction in business (including furlough),Enough - Not Always Wanted,0.38111850552792054
+Coronavirus pandemic related reduction in business (including furlough),Sometimes Not Enough,0.14573660221454057
+Coronavirus pandemic related reduction in business (including furlough),Often Not Enough,0.03832840880444695
+Coronavirus pandemic related reduction in business (including furlough),Did not report,0.06746575688808246
+Did not report,Enough - Wanted,0.5911652793605092
+Did not report,Enough - Not Always Wanted,0.22825720536616761
+Did not report,Sometimes Not Enough,0.05571235050871516
+Did not report,Often Not Enough,0.011876715984878966
+Did not report,Did not report,0.11298844877972905
+Did not want to be employed,Enough - Wanted,0.6045930944740537
+Did not want to be employed,Enough - Not Always Wanted,0.17144863882434716
+Did not want to be employed,Sometimes Not Enough,0.0353138817031656
+Did not want to be employed,Often Not Enough,0.016567260025539068
+Did not want to be employed,Did not report,0.17207712497289446
+Employment closed temporarily due to the coronavirus pandemic,Enough - Wanted,0.3616465086743829
+Employment closed temporarily due to the coronavirus pandemic,Enough - Not Always Wanted,0.35472062185089
+Employment closed temporarily due to the coronavirus pandemic,Sometimes Not Enough,0.15644883962828623
+Employment closed temporarily due to the coronavirus pandemic,Often Not Enough,0.04245030129720497
+Employment closed temporarily due to the coronavirus pandemic,Did not report,0.08473372854923587
+Employment went out of business due to the coronavirus pandemic,Enough - Wanted,0.22192058424390074
+Employment went out of business due to the coronavirus pandemic,Enough - Not Always Wanted,0.3067671192196363
+Employment went out of business due to the coronavirus pandemic,Sometimes Not Enough,0.2253942913666118
+Employment went out of business due to the coronavirus pandemic,Often Not Enough,0.11007054296603756
+Employment went out of business due to the coronavirus pandemic,Did not report,0.13584746220381366
+I did not have tranportation to work,Enough - Wanted,0.21852741040821597
+I did not have tranportation to work,Enough - Not Always Wanted,0.28021817103819086
+I did not have tranportation to work,Sometimes Not Enough,0.18024061699499322
+I did not have tranportation to work,Often Not Enough,0.06191988083419063
+I did not have tranportation to work,Did not report,0.25909392072440934
+I was caring for someone or sick myself with coronavirus symptoms,Enough - Wanted,0.2915225068393492
+I was caring for someone or sick myself with coronavirus symptoms,Enough - Not Always Wanted,0.2774465872491542
+I was caring for someone or sick myself with coronavirus symptoms,Sometimes Not Enough,0.17409814555663145
+I was caring for someone or sick myself with coronavirus symptoms,Often Not Enough,0.06193520584215659
+I was caring for someone or sick myself with coronavirus symptoms,Did not report,0.19499755451270853
+I was concerned about getting or spreading the coronavirus,Enough - Wanted,0.3292958293096415
+I was concerned about getting or spreading the coronavirus,Enough - Not Always Wanted,0.3243421094285388
+I was concerned about getting or spreading the coronavirus,Sometimes Not Enough,0.14286514456799343
+I was concerned about getting or spreading the coronavirus,Often Not Enough,0.03813106889052835
+I was concerned about getting or spreading the coronavirus,Did not report,0.16536584780329794
+I was laid off or furloughed due to coronavirus pandemic,Enough - Wanted,0.3777973005513208
+I was laid off or furloughed due to coronavirus pandemic,Enough - Not Always Wanted,0.274162651665767
+I was laid off or furloughed due to coronavirus pandemic,Sometimes Not Enough,0.13962071809544943
+I was laid off or furloughed due to coronavirus pandemic,Often Not Enough,0.045340979124446734
+I was laid off or furloughed due to coronavirus pandemic,Did not report,0.16307835056301606
+Laid off due to coronavirus pandemic,Enough - Wanted,0.3222750861048653
+Laid off due to coronavirus pandemic,Enough - Not Always Wanted,0.3710963270639985
+Laid off due to coronavirus pandemic,Sometimes Not Enough,0.17248353282020326
+Laid off due to coronavirus pandemic,Often Not Enough,0.05804900514771451
+Laid off due to coronavirus pandemic,Did not report,0.07609604886321841
+Other reason,Enough - Wanted,0.4539473954083031
+Other reason,Enough - Not Always Wanted,0.274888553013935
+Other reason,Sometimes Not Enough,0.10630339351514168
+Other reason,Often Not Enough,0.04046882527084761
+Other reason,Did not report,0.12439183279177264
+Retired,Enough - Wanted,0.7121295137464335
+Retired,Enough - Not Always Wanted,0.18991168691678326
+Retired,Sometimes Not Enough,0.024758437834587595
+Retired,Often Not Enough,0.004943514571458023
+Retired,Did not report,0.06825684693073764
+Sick (not coronavirus related) or disabled,Enough - Wanted,0.33612966394139115
+Sick (not coronavirus related) or disabled,Enough - Not Always Wanted,0.36802776594156444
+Sick (not coronavirus related) or disabled,Sometimes Not Enough,0.1647271059345911
+Sick (not coronavirus related) or disabled,Often Not Enough,0.0483922938084023
+Sick (not coronavirus related) or disabled,Did not report,0.08272317037405101
+Sick with coronavirus symptoms,Enough - Wanted,0.27391354398843115
+Sick with coronavirus symptoms,Enough - Not Always Wanted,0.3284551039852147
+Sick with coronavirus symptoms,Sometimes Not Enough,0.19806820591520755
+Sick with coronavirus symptoms,Often Not Enough,0.06171417265311434
+Sick with coronavirus symptoms,Did not report,0.1378489734580323
+NA,Enough - Wanted,0.5544161275342461
+NA,Enough - Not Always Wanted,0.24636181126348958
+NA,Sometimes Not Enough,0.07370959455220888
+NA,Often Not Enough,0.019693923504841605
+NA,Did not report,0.10581854314521388

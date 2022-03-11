@@ -29,7 +29,7 @@ h2{
 h3{
 
   font-family: 'Courier Prime', monospace;
-	font-size: 40px;
+	font-size: 30px;
 	color: #528257;
 
 }
@@ -50,10 +50,12 @@ h5{
 
 }
 
+
+
 body{
   background-color: #ffffe3;
   font-family: 'Jost', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
 	color: #528257;
 
 }
@@ -67,6 +69,8 @@ body{
     color: #528257;
 }
 
+a:link {
 
-
+  color : orange;
+}
 
